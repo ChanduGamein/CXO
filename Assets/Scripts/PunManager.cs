@@ -34,26 +34,10 @@ public class PunManager : MonoBehaviourPunCallbacks {
         PhotonView photonView = PhotonView.Get(this);
         PhotonNetwork.EnableCloseConnection = true;
         PhotonNetwork.JoinLobby();
-       // Connect();
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    public void Connect()
-    {
-        // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
-        if (PhotonNetwork.IsConnected)
-        {
-            // #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed() and we'll create one.
-            if (IsAdmin) {
-                CustomcreateRoom();
-            }
-        }
-        else
-        {
-            // #Critical, we must first and foremost connect to Photon Online Server.
-            PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.GameVersion = this.version;
-        }
-    }
+  
     private bool IsNullOrEmpty(string text) {
         throw new NotImplementedException();
     }
