@@ -3416,7 +3416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1144318005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4838,72 +4838,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609204417}
   m_CullTransparentMesh: 1
---- !u!1 &1686924735
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1686924737}
-  - component: {fileID: 1686924736}
-  m_Layer: 0
-  m_Name: IntroSceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1686924736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686924735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 177145b04fd30bb42830501c15e4ae85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParticipantUIPrefab: {fileID: 1396631600775616591, guid: 129f724dff4e75e488ae675c520a979b, type: 3}
-  HorizontalUIPrefab: {fileID: 313118021930180613, guid: 33f6766d86ecc89469172f40214abf27, type: 3}
-  VerticalGrp: {fileID: 592762672}
-  HorizontalPrefabObject: {fileID: 0}
-  ParticipantList: []
-  ChooseCategoryBtn: {fileID: 1386484150}
-  CrossSprite: {fileID: 21300000, guid: f67f3e1761bdfb643a3de408250dfd4c, type: 3}
-  PlayerLeftCOunter: 0
-  CategoryBtns:
-  - {fileID: 1777318645}
-  - {fileID: 1544029875}
-  - {fileID: 2125407945}
-  - {fileID: 1471464603}
-  - {fileID: 947334290}
-  - {fileID: 73220107}
-  - {fileID: 132500212}
-  categoryNumber: 0
-  CategoryName: {fileID: 2050578891}
-  StartGameBtn: {fileID: 381484394}
-  AwaitingParticipantsGrp: {fileID: 152475772}
-  Categoriesgrp: {fileID: 147723873}
-  UserText: {fileID: 1751763717}
---- !u!4 &1686924737
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686924735}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2328503, y: 2.5977178, z: -4.67587}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1710038061
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class IntroSceneManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI CategoryName;
     [SerializeField] Button StartGameBtn;
     [SerializeField] GameObject AwaitingParticipantsGrp, Categoriesgrp;
+    public GameObject UserText;
     private void Awake()
     {
         if (instance==null)
@@ -35,7 +36,6 @@ public class IntroSceneManager : MonoBehaviour
         CategoryBtns[4].onClick.AddListener(() => SetCategory(4, CategoryBtns[4].gameObject));
         CategoryBtns[5].onClick.AddListener(() => SetCategory(5, CategoryBtns[5].gameObject));
         CategoryBtns[6].onClick.AddListener(() => SetCategory(6, CategoryBtns[6].gameObject));
-        CategoryBtns[7].onClick.AddListener(() => SetCategory(7, CategoryBtns[7].gameObject));
 
     }
 

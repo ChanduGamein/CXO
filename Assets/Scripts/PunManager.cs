@@ -7,6 +7,7 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PunManager : MonoBehaviourPunCallbacks {
     string version = "1";
@@ -31,24 +32,26 @@ public class PunManager : MonoBehaviourPunCallbacks {
         PhotonNetwork.GameVersion = this.version;
         PhotonNetwork.ConnectUsingSettings();
         PhotonView photonView = PhotonView.Get(this);
-
-
-
-
+        PhotonNetwork.EnableCloseConnection = true;
+        PhotonNetwork.JoinLobby();
+       // Connect();
     }
 
-    private void Update() {
-
-        // Debug.Log(DummyObject.transform.localPosition.x);
-        // cam.GetComponent<D2FogsPE>().Density = DummyObject.transform.localPosition.x * 2f;
-        // sliderval.text = (DummyObject.transform.localPosition.x * 2f).ToString();
-
-        if (PhotonNetwork.IsMasterClient) {
-            //if (PlayerObject != null) {
-            //   // Debug.Log(PlayerObject.GetComponent<PlayerScript>().PlayerName);
-            //   // PlayerObject.GetComponent<PlayerScript>().PlayerName = DataStorage.GetComponent<DataStorage>()._UserNameVal;
-
-            //}
+    public void Connect()
+    {
+        // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
+        if (PhotonNetwork.IsConnected)
+        {
+            // #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed() and we'll create one.
+            if (IsAdmin) {
+                CustomcreateRoom();
+            }
+        }
+        else
+        {
+            // #Critical, we must first and foremost connect to Photon Online Server.
+            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.GameVersion = this.version;
         }
     }
     private bool IsNullOrEmpty(string text) {
@@ -97,7 +100,6 @@ public class PunManager : MonoBehaviourPunCallbacks {
         PlayerCount++;
 
         PlayerObject=PhotonNetwork.Instantiate(PlayerPrefab.name, PlayerPrefab.transform.position, PlayerPrefab.transform.rotation, 0);
-
         countofPlayers();
         //JoinRoom.gameObject.SetActive(false);
 
@@ -115,6 +117,8 @@ public class PunManager : MonoBehaviourPunCallbacks {
     }
     public override void OnLeftRoom() {
         Debug.Log("OnLeftRoom"); countofPlayers(); PlayerCount--;
+        IntroSceneManager.instance.UserText.SetActive(true);
+
     }
     public override void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics) {
         Debug.Log("OnLobbyStatisticsUpdate"); Debug.Log(PhotonNetwork.CountOfRooms.ToString());
@@ -126,10 +130,11 @@ public class PunManager : MonoBehaviourPunCallbacks {
         Debug.Log("OnPlayerEnteredRoom"); //nextPlayer.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString();
         Debug.Log(newPlayer.ActorNumber);
         PlayerCount++;
-        if (newPlayer.ActorNumber>1)
+        if (PlayerCount > 1)
         {
             IntroSceneManager.instance.VerticalGrp.transform.parent.GetComponent<Image>().enabled = false;
-            if (newPlayer.ActorNumber%2==0)
+            IntroSceneManager.instance.VerticalGrp.transform.parent.transform.GetChild(0).gameObject.SetActive(false);
+            if (PlayerCount % 2==0)
             {
                 IntroSceneManager.instance.HorizontalPrefabObject = Instantiate(IntroSceneManager.instance.HorizontalUIPrefab, Vector3.zero, Quaternion.identity);
                 IntroSceneManager.instance.HorizontalPrefabObject.transform.SetParent(IntroSceneManager.instance.VerticalGrp.transform);
@@ -139,7 +144,7 @@ public class PunManager : MonoBehaviourPunCallbacks {
                 B.transform.SetParent(IntroSceneManager.instance.HorizontalPrefabObject.transform);
                 B.transform.localPosition = Vector3.zero;
                 B.transform.localScale = Vector3.one;
-                B.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =(newPlayer.ActorNumber - 1).ToString();
+                B.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =(PlayerCount - 1).ToString();
                 IntroSceneManager.instance.ParticipantList.Add(B);
             }
             else
@@ -148,13 +153,13 @@ public class PunManager : MonoBehaviourPunCallbacks {
                 B.transform.SetParent(IntroSceneManager.instance.HorizontalPrefabObject.transform);
                 B.transform.localPosition = Vector3.zero;
                 B.transform.localScale = Vector3.one;
-                B.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = (newPlayer.ActorNumber - 1).ToString();
+                B.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = (PlayerCount - 1).ToString();
                 IntroSceneManager.instance.ParticipantList.Add(B);
 
             }
         }
        
-        if (newPlayer.ActorNumber > 4)
+        if (PlayerCount > 4)
         {
             IntroSceneManager.instance.ChooseCategoryBtn.interactable = true;
 
@@ -162,8 +167,10 @@ public class PunManager : MonoBehaviourPunCallbacks {
     }
     public override void OnPlayerLeftRoom(Player otherPlayer) {
         Debug.Log("OnPlayerLeftRoom"); countofPlayers();
-        Debug.Log(otherPlayer.ActorNumber);
-        if (otherPlayer.ActorNumber > 1) {
+       
+       
+        if (PlayerCount > 1) {
+            Debug.Log(IntroSceneManager.instance.ParticipantList.Count);
             IntroSceneManager.instance.ParticipantList[otherPlayer.ActorNumber - 2].transform.GetChild(2).GetComponent<Image>().sprite = IntroSceneManager.instance.CrossSprite;
             IntroSceneManager.instance.PlayerLeftCOunter++;
         }
@@ -192,13 +199,13 @@ public class PunManager : MonoBehaviourPunCallbacks {
         {
             CustomcreateRoom();
         }
-        if (roomList.Count == 1) {
-            // CustomRoomname.gameObject.SetActive(false);
-            //Name.transform.parent.gameObject.SetActive(false);
 
-            // JoinRoom.gameObject.SetActive(true);
-            //Debug.Log(UserNameText.text);
-            CustomJoinRoom();
+        if (roomList.Count == 1) {
+            if (!IntroSceneManager.instance.UserText.activeInHierarchy)
+            {
+                CustomJoinRoom();
+
+            }
         }
     }
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged) {
@@ -214,7 +221,8 @@ public class PunManager : MonoBehaviourPunCallbacks {
             {
             // GamePanel.SetActive(true);
             //  RoomNameText.text = "Room" + " : " + System.DateTime.Now;
-            PhotonNetwork.CreateRoom(Room_Name, roomOptions, typedLobby, teamMembersUserIds);
+         //   Room_Name = Room_Name + SessionVal.ToString();
+            PhotonNetwork.JoinOrCreateRoom(Room_Name, roomOptions, typedLobby);
 
             //PhotonNetwork.CurrentRoom.IsOpen = false;
             //  PhotonNetwork.CurrentRoom.IsVisible = false;
@@ -248,5 +256,66 @@ public class PunManager : MonoBehaviourPunCallbacks {
 
     }
 
+   public void Reload()
+   {
+        PlayerCount = 1;
+        IntroSceneManager.instance.ParticipantList.Clear();
+        Leave();
+        foreach (Transform T in IntroSceneManager.instance.VerticalGrp.transform)
+        {
+            Destroy(T.gameObject);
+        }
+        IntroSceneManager.instance.VerticalGrp.transform.parent.GetComponent<Image>().enabled = true;
+        IntroSceneManager.instance.VerticalGrp.transform.parent.transform.GetChild(0).gameObject.SetActive(true);
+
+
+        //PhotonNetwork.Disconnect();
+
+        //PhotonNetwork.LeaveRoom();
+        //PhotonNetwork.LeaveLobby();
+
+
+        StartCoroutine(loadscene());
+
+    }
+    IEnumerator loadscene()
+    {
+        yield return new WaitForSeconds(5f);
+        PhotonNetwork.Disconnect();
+
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LeaveLobby();
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene(0);
+        //PhotonNetwork.CurrentRoom.IsOpen = false;
+        //PhotonNetwork.CurrentRoom.IsVisible = false;
+    }
+    public void Leave()
+    {
+        // Check if the master client is leaving
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+
+            // Kick the other players from the room
+            Player[] otherPlayers = PhotonNetwork.PlayerListOthers;
+            for (int i = 0; i < otherPlayers.Length; ++i)
+            {
+               // PhotonNetwork.CloseConnection(otherPlayers[i]);
+               if(PhotonNetwork.IsConnectedAndReady) Kick(otherPlayers[i]);
+            }
+        }
+
+       // PhotonNetwork.LeaveRoom();
+    }
+
+    public void Kick(Player kick)
+    {
+        Debug.Log("kickd");     
+        PhotonNetwork.CloseConnection(kick);
+    }
+  
 
 }
