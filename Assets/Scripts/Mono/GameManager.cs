@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField]    TextMeshProUGUI     timerText               = null;
     [SerializeField]    Color               timerHalfWayOutColor    = Color.yellow;
     [SerializeField]    Color               timerAlmostOutColor     = Color.red;
-    private             Color               timerDefaultColor       = Color.white;
+    private             Color               timerDefaultColor       = Color.black;
 
     private             List<AnswerData>    PickedAnswers           = new List<AnswerData>();
     private             List<int>           FinishedQuestions       = new List<int>();
@@ -28,7 +29,6 @@ public class GameManager : MonoBehaviour {
 
     private             IEnumerator         IE_WaitTillNextRound    = null;
     private             IEnumerator         IE_StartTimer           = null;
-
     private             bool                IsFinished
     {
         get
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] public enum QuestionCategory { Type1, Type2, Type3 };
     public QuestionCategory chooseCategory;
+    [SerializeField] Image TimerImageHolder;
 
 
     #endregion
@@ -167,7 +168,7 @@ public class GameManager : MonoBehaviour {
         bool isCorrect = CheckAnswers();
         FinishedQuestions.Add(currentQuestion);
 
-        UpdateScore((isCorrect) ? Questions[currentQuestion].AddScore : -Questions[currentQuestion].AddScore);
+        UpdateScore((isCorrect) ? Questions[currentQuestion].AddScore : 0);// -Questions[currentQuestion].AddScore);
 
         if (IsFinished)
         {
@@ -185,7 +186,7 @@ public class GameManager : MonoBehaviour {
             events.DisplayResolutionScreen(type, Questions[currentQuestion].AddScore);
         }
 
-        AudioManager.Instance.PlaySound((isCorrect) ? "CorrectSFX" : "IncorrectSFX");
+      //  AudioManager.Instance.PlaySound((isCorrect) ? "CorrectSFX" : "IncorrectSFX");
 
         if (type != UIManager.ResolutionScreenType.Finish)
         {
@@ -195,6 +196,8 @@ public class GameManager : MonoBehaviour {
             }
             IE_WaitTillNextRound = WaitTillNextRound();
             StartCoroutine(IE_WaitTillNextRound);
+
+            Debug.Log("IsFinished");
         }
     }
 
@@ -208,7 +211,7 @@ public class GameManager : MonoBehaviour {
                 IE_StartTimer = StartTimer();
                 StartCoroutine(IE_StartTimer);
 
-                timerAnimtor.SetInteger(timerStateParaHash, 2);
+               // timerAnimtor.SetInteger(timerStateParaHash, 2);
                 break;
             case false:
                 if (IE_StartTimer != null)
@@ -216,7 +219,7 @@ public class GameManager : MonoBehaviour {
                     StopCoroutine(IE_StartTimer);
                 }
 
-                timerAnimtor.SetInteger(timerStateParaHash, 1);
+               // timerAnimtor.SetInteger(timerStateParaHash, 1);
                 break;
         }
     }
@@ -230,15 +233,26 @@ public class GameManager : MonoBehaviour {
         {
             timeLeft--;
 
-            AudioManager.Instance.PlaySound("CountdownSFX");
+            // AudioManager.Instance.PlaySound("CountdownSFX");
 
-            if (timeLeft < totalTime / 2 && timeLeft > totalTime / 4)
+            //if (timeLeft < totalTime / 2 && timeLeft > totalTime / 4)
+            //{
+            //    timerText.color = timerHalfWayOutColor;
+            //}
+            //if (timeLeft < totalTime / 4)
+            //{
+            //    timerText.color = timerAlmostOutColor;
+            //}
+           
+
+            TimerImageHolder.fillAmount = (timeLeft / 45f);
+          
+            if (timeLeft<30 && timeLeft > 15)
             {
-                timerText.color = timerHalfWayOutColor;
-            }
-            if (timeLeft < totalTime / 4)
+                TimerImageHolder.color = timerHalfWayOutColor;
+            } else if (timeLeft<15)
             {
-                timerText.color = timerAlmostOutColor;
+                TimerImageHolder.color = timerAlmostOutColor;
             }
 
             timerText.text = timeLeft.ToString();
@@ -341,7 +355,7 @@ public class GameManager : MonoBehaviour {
     {
         var randomIndex = GetRandomQuestionIndex();
         currentQuestion = randomIndex;
-
+        Debug.Log(randomIndex);
         return Questions[currentQuestion];
     }
     int GetRandomQuestionIndex()

@@ -21,6 +21,7 @@ public class IntroSceneManager : MonoBehaviour
     public TMP_InputField[] UserFields;
     public TextMeshProUGUI UserNameText;
     [SerializeField] Button NextButton;
+    public string[] playerNames;
     private void Awake()
     {
         if (instance==null)
@@ -32,7 +33,7 @@ public class IntroSceneManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-
+        playerNames=new string[20];
         ChooseCategoryBtn.onClick.AddListener(()=> CategoryBtnOptions());
         CategoryBtns[0].onClick.AddListener(() => SetCategory(0, CategoryBtns[0].gameObject));
         CategoryBtns[1].onClick.AddListener(() => SetCategory(1, CategoryBtns[1].gameObject));

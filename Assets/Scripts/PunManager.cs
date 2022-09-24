@@ -84,6 +84,7 @@ public class PunManager : MonoBehaviourPunCallbacks {
         PlayerCount++;
 
         PlayerObject=PhotonNetwork.Instantiate(PlayerPrefab.name, PlayerPrefab.transform.position, PlayerPrefab.transform.rotation, 0);
+        PlayerObject.GetComponent<GameStatusManager>().PlayerNumber = PlayerCount;
         countofPlayers();
         //JoinRoom.gameObject.SetActive(false);
 
@@ -148,6 +149,8 @@ public class PunManager : MonoBehaviourPunCallbacks {
             IntroSceneManager.instance.ChooseCategoryBtn.interactable = true;
 
         }
+       // GameStatusManager.instance.PlayerNumber = newPlayer.ActorNumber;
+
     }
     public override void OnPlayerLeftRoom(Player otherPlayer) {
         Debug.Log("OnPlayerLeftRoom"); countofPlayers();
