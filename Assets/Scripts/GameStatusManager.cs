@@ -27,6 +27,7 @@ public class GameStatusManager : MonoBehaviour, IPunObservable
             return;
         }
         playerName = IntroSceneManager.instance.UserNameText.text;
+      
        // photonView.RPC("PlayerStatusSetup", RpcTarget.MasterClient, playerName);
     }
    //[PunRPC]

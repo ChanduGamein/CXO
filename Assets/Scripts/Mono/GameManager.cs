@@ -5,9 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class GameManager : MonoBehaviour {
-
+    PhotonView photonView;
     #region Variables
 
     private             Question[]          _questions              = null;
@@ -38,10 +39,10 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    [SerializeField] public enum QuestionCategory { Type1, Type2, Type3 };
+    [SerializeField] public enum QuestionCategory { Type1, Type2, Type3, Type4 };
     public QuestionCategory chooseCategory;
     [SerializeField] Image TimerImageHolder;
-
+    [SerializeField] TextMeshProUGUI QuestionTotalText;
 
     #endregion
 
@@ -53,6 +54,17 @@ public class GameManager : MonoBehaviour {
     void OnEnable()
     {
         events.UpdateQuestionAnswer += UpdateAnswers;
+
+       StartCoroutine(_DelayDispaly());
+
+    }
+    IEnumerator _DelayDispaly()
+    {
+        yield return new WaitForSeconds(.4f);
+        if (PhotonNetwork.IsMasterClient) StatusManger.instance.QuestionIndex = GetRandomQuestionIndex();
+
+        photonView.RPC("Display", RpcTarget.All);
+        Accept();
     }
     /// <summary>
     /// Function that is called when the behaviour becomes disabled
@@ -74,7 +86,8 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     void Start()
     {
-      //  events.StartupHighscore = PlayerPrefs.GetInt(GameUtility.SavePrefKey);
+        //  events.StartupHighscore = PlayerPrefs.GetInt(GameUtility.SavePrefKey);
+        photonView = PhotonView.Get(this);
 
         timerDefaultColor = timerText.color;
 
@@ -89,6 +102,9 @@ public class GameManager : MonoBehaviour {
         else if (chooseCategory == QuestionCategory.Type3)
         {
             LoadQuestions("Questions3");
+        } else if (chooseCategory == QuestionCategory.Type4)
+        {
+            LoadQuestions("Questions4");
         }
 
         timerStateParaHash = Animator.StringToHash("TimerState");
@@ -96,7 +112,8 @@ public class GameManager : MonoBehaviour {
         var seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
         UnityEngine.Random.InitState(seed);
 
-        Display();
+        // Display();
+       
     }
 
     #endregion
@@ -143,22 +160,32 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// Function that is called to display new question.
     /// </summary>
-    void Display()
+    [PunRPC]
+   public void Display()
+   {
+        QuestionTotalText.text = StatusManger.instance.QuestionTotal.ToString();
+      if(StatusManger.instance.QuestionTotal<=3)  StartCoroutine(_DisplayQuestion());
+   }
+    IEnumerator _DisplayQuestion()
     {
+        yield return new WaitForSeconds(.5f);
         EraseAnswers();
-        var question = GetRandomQuestion();
+       
+            var question = GetRandomQuestion();
+            StatusManger.instance.QuestionText.text = question.Info;
+            if (events.UpdateQuestionUI != null)
+            {
+                events.UpdateQuestionUI(question);
+            }
+            else { Debug.LogWarning("Ups! Something went wrong while trying to display new Question UI Data. GameEvents.UpdateQuestionUI is null. Issue occured in GameManager.Display() method."); }
 
-        if (events.UpdateQuestionUI != null)
-        {
-            events.UpdateQuestionUI(question);
-        } else { Debug.LogWarning("Ups! Something went wrong while trying to display new Question UI Data. GameEvents.UpdateQuestionUI is null. Issue occured in GameManager.Display() method."); }
+            if (question.UseTimer)
+            {
+                UpdateTimer(question.UseTimer);
+            }
+        
 
-        if (question.UseTimer)
-        {
-            UpdateTimer(question.UseTimer);
-        }
     }
-
     /// <summary>
     /// Function that is called to accept picked answers and check/display the result.
     /// </summary>
@@ -170,35 +197,35 @@ public class GameManager : MonoBehaviour {
 
         UpdateScore((isCorrect) ? Questions[currentQuestion].AddScore : 0);// -Questions[currentQuestion].AddScore);
 
-        if (IsFinished)
-        {
-            SetHighscore();
-        }
+        //if (IsFinished)
+        //{
+        //    SetHighscore();
+        //}
 
-        var type 
-            = (IsFinished) 
-            ? UIManager.ResolutionScreenType.Finish 
-            : (isCorrect) ? UIManager.ResolutionScreenType.Correct 
-            : UIManager.ResolutionScreenType.Incorrect;
+        //var type 
+        //    = (IsFinished) 
+        //    ? UIManager.ResolutionScreenType.Finish 
+        //    : (isCorrect) ? UIManager.ResolutionScreenType.Correct 
+        //    : UIManager.ResolutionScreenType.Incorrect;
 
-        if (events.DisplayResolutionScreen != null)
-        {
-            events.DisplayResolutionScreen(type, Questions[currentQuestion].AddScore);
-        }
+        //if (events.DisplayResolutionScreen != null)
+        //{
+        //    events.DisplayResolutionScreen(type, Questions[currentQuestion].AddScore);
+        //}
 
       //  AudioManager.Instance.PlaySound((isCorrect) ? "CorrectSFX" : "IncorrectSFX");
 
-        if (type != UIManager.ResolutionScreenType.Finish)
-        {
-            if (IE_WaitTillNextRound != null)
-            {
-                StopCoroutine(IE_WaitTillNextRound);
-            }
-            IE_WaitTillNextRound = WaitTillNextRound();
-            StartCoroutine(IE_WaitTillNextRound);
+        //if (type != UIManager.ResolutionScreenType.Finish)
+        //{
+        //    if (IE_WaitTillNextRound != null)
+        //    {
+        //        StopCoroutine(IE_WaitTillNextRound);
+        //    }
+        //    IE_WaitTillNextRound = WaitTillNextRound();
+        //    StartCoroutine(IE_WaitTillNextRound);
 
-            Debug.Log("IsFinished");
-        }
+        //    Debug.Log("IsFinished");
+        //}
     }
 
     #region Timer Methods
@@ -208,10 +235,12 @@ public class GameManager : MonoBehaviour {
         switch (state)
         {
             case true:
-                IE_StartTimer = StartTimer();
-                StartCoroutine(IE_StartTimer);
-
-               // timerAnimtor.SetInteger(timerStateParaHash, 2);
+                if (!PhotonNetwork.IsMasterClient)
+                {
+                    IE_StartTimer = StartTimer();
+                    StartCoroutine(IE_StartTimer);
+                }
+                
                 break;
             case false:
                 if (IE_StartTimer != null)
@@ -223,26 +252,29 @@ public class GameManager : MonoBehaviour {
                 break;
         }
     }
+   // [PunRPC]
+    public void TimerGrp()
+    {
+       
+        IE_StartTimer = StartTimer();
+        StartCoroutine(IE_StartTimer);
+    }
+    int timeLeft;
+   void Update()
+    {
+        timeLeft = (int)StatusManger.instance.Timer;// totalTime;
+
+    }
     IEnumerator StartTimer()
     {
-        var totalTime = Questions[currentQuestion].Timer;
-        var timeLeft = totalTime;
+       //  var totalTime = Questions[currentQuestion].Timer;
 
         timerText.color = timerDefaultColor;
         while (timeLeft > 0)
         {
-            timeLeft--;
+           // timeLeft--;
 
-            // AudioManager.Instance.PlaySound("CountdownSFX");
-
-            //if (timeLeft < totalTime / 2 && timeLeft > totalTime / 4)
-            //{
-            //    timerText.color = timerHalfWayOutColor;
-            //}
-            //if (timeLeft < totalTime / 4)
-            //{
-            //    timerText.color = timerAlmostOutColor;
-            //}
+         
            
 
             TimerImageHolder.fillAmount = (timeLeft / 45f);
@@ -250,20 +282,22 @@ public class GameManager : MonoBehaviour {
             if (timeLeft<30 && timeLeft > 15)
             {
                 TimerImageHolder.color = timerHalfWayOutColor;
+               
             } else if (timeLeft<15)
             {
                 TimerImageHolder.color = timerAlmostOutColor;
+                
             }
 
             timerText.text = timeLeft.ToString();
             yield return new WaitForSeconds(1.0f);
         }
-        Accept();
+        //Accept();
     }
     IEnumerator WaitTillNextRound()
     {
         yield return new WaitForSeconds(GameUtility.ResolutionDelayTime);
-        Display();
+      //  Display();
     }
 
     #endregion
@@ -315,7 +349,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     /// <summary>
     /// Function that is called to quit the application.
@@ -353,22 +387,27 @@ public class GameManager : MonoBehaviour {
 
     Question GetRandomQuestion()
     {
-        var randomIndex = GetRandomQuestionIndex();
-        currentQuestion = randomIndex;
-        Debug.Log(randomIndex);
+       
+       
+       // var randomIndex = StatusManger.instance.QuestionIndex;// GetRandomQuestionIndex();
+        currentQuestion = StatusManger.instance.QuestionIndex;
+        Debug.Log(StatusManger.instance.QuestionIndex);
         return Questions[currentQuestion];
     }
+    int random = -1;
     int GetRandomQuestionIndex()
     {
-        var random = 0;
-        if (FinishedQuestions.Count < Questions.Length)
-        {
-            do
-            {
-                random = UnityEngine.Random.Range(0, Questions.Length);
-            } while (FinishedQuestions.Contains(random) || random == currentQuestion);
-        }
+       
+        random++;
+        //if (FinishedQuestions.Count < Questions.Length)
+        //{
+        //    do
+        //    {
+        //        random = UnityEngine.Random.Range(0, Questions.Length);
+        //    } while (FinishedQuestions.Contains(random) || random == currentQuestion);
+        //}
         return random;
+       
     }
 
     #endregion

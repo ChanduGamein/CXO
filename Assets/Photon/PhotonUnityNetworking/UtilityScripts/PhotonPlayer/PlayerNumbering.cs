@@ -58,7 +58,6 @@ namespace Photon.Pun.UtilityScripts
         /// </summary>
         public bool dontDestroyOnLoad = false;
 
-
         #endregion
 
 
@@ -184,6 +183,8 @@ namespace Photon.Pun.UtilityScripts
                         usedInts.Add(number);
                     }
                 }
+
+
             }
 
             //Debug.Log(allPlayers);
@@ -194,6 +195,7 @@ namespace Photon.Pun.UtilityScripts
             {
                 OnPlayerNumberingChanged();
             }
+
         }
     }
 
@@ -202,9 +204,11 @@ namespace Photon.Pun.UtilityScripts
     /// <summary>Extension used for PlayerRoomIndexing and Player class.</summary>
     public static class PlayerNumberingExtensions
     {
+      
+
         /// <summary>Extension for Player class to wrap up access to the player's custom property.
-		/// Make sure you use the delegate 'OnPlayerNumberingChanged' to knoiw when you can query the PlayerNumber. Numbering can changes over time or not be yet assigned during the initial phase ( when player creates a room for example)
-		/// </summary>
+        /// Make sure you use the delegate 'OnPlayerNumberingChanged' to knoiw when you can query the PlayerNumber. Numbering can changes over time or not be yet assigned during the initial phase ( when player creates a room for example)
+        /// </summary>
         /// <returns>persistent index in room. -1 for no indexing</returns>
         public static int GetPlayerNumber(this Player player)
         {
@@ -262,6 +266,7 @@ namespace Photon.Pun.UtilityScripts
 				Debug.Log("PlayerNumbering: Set number "+playerNumber);
                 player.SetCustomProperties(new Hashtable() { { PlayerNumbering.RoomPlayerIndexedProp, (byte)playerNumber } });
             }
+            
         }
     }
 }

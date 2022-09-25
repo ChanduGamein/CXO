@@ -11,12 +11,12 @@ public class RaiseEvent : MonoBehaviourPun {
     public int ScoreValue,TimeValue, Playernumber;
     private const byte Client_CHANGE_EVENT = 0;
   
-    private void Update() {
-        if (!PhotonNetwork.IsMasterClient && !playerJoined) {
-            ChangeClientview();
-            Debug.Log("test");
-        } 
-    }
+    //private void Update() {
+    //    if (!PhotonNetwork.IsMasterClient && !playerJoined) {
+    //        ChangeClientview();
+    //        Debug.Log("test");
+    //    } 
+    //}
 
     private void OnEnable() {
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
@@ -42,17 +42,36 @@ public class RaiseEvent : MonoBehaviourPun {
             TimeValue = timeValue;
             PlayerName = playername;
             Playernumber = playernumber;
-
            
+            IntroSceneManager.instance.playerNames[Playernumber] = playername;
+            IntroSceneManager.instance.playerScores[Playernumber] = scoreValue;
+            IntroSceneManager.instance.Timevalues[Playernumber] = timeValue;
         }
     }
 
-  
-    private void ChangeClientview() {
-
+    public void UpdateAfterDelay()
+    {
+        StartCoroutine(_updateValues());
+    }
+    IEnumerator _updateValues()
+    {
+       
+        yield return new WaitForSeconds(4f);
+        UpdateValues();
+    }
+    private void UpdateValues() {
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+            if (p.IsLocal)
+            {
+                Playernumber = p.ActorNumber;
+            }            
+        }
         playerJoined = true;
-     //   ScoreValue = GameStatusManager.instance.ScoreValue;
-      // TimeValue = GameStatusManager.instance.TimeValue;
+        PlayerName = IntroSceneManager.instance.UserNameText.text;
+       
+           ScoreValue = IntroSceneManager.instance.ScoreValue;
+         TimeValue = IntroSceneManager.instance.TimeValue;
         object[] datas = new object[] { playerJoined, ScoreValue, TimeValue, PlayerName, Playernumber };
 
         PhotonNetwork.RaiseEvent(Client_CHANGE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);

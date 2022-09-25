@@ -19,7 +19,7 @@ public class PunManager : MonoBehaviourPunCallbacks {
     private string[] teamMembersUserIds; private string[] expectedUsers;
     private TypedLobby typedLobby;
     private RoomOptions roomOptions;
-
+    PhotonView photonView;
     public static PunManager instance = null;
     [SerializeField] GameObject PlayerObject, PlayerPrefab;
     public String Room_Name;
@@ -31,10 +31,9 @@ public class PunManager : MonoBehaviourPunCallbacks {
     void Start() {
         PhotonNetwork.GameVersion = this.version;
         PhotonNetwork.ConnectUsingSettings();
-        PhotonView photonView = PhotonView.Get(this);
+        photonView = PhotonView.Get(this);
         PhotonNetwork.EnableCloseConnection = true;
         PhotonNetwork.JoinLobby();
-        DontDestroyOnLoad(this.gameObject);
     }
 
   
@@ -84,7 +83,7 @@ public class PunManager : MonoBehaviourPunCallbacks {
         PlayerCount++;
 
         PlayerObject=PhotonNetwork.Instantiate(PlayerPrefab.name, PlayerPrefab.transform.position, PlayerPrefab.transform.rotation, 0);
-        PlayerObject.GetComponent<GameStatusManager>().PlayerNumber = PlayerCount;
+       
         countofPlayers();
         //JoinRoom.gameObject.SetActive(false);
 
@@ -115,6 +114,8 @@ public class PunManager : MonoBehaviourPunCallbacks {
         Debug.Log("OnPlayerEnteredRoom"); //nextPlayer.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString();
         Debug.Log(newPlayer.ActorNumber);
         PlayerCount++;
+        //  IntroSceneManager.instance.playerNumber = newPlayer.ActorNumber;
+      
         if (PlayerCount > 1)
         {
             IntroSceneManager.instance.VerticalGrp.transform.parent.GetComponent<Image>().enabled = false;
