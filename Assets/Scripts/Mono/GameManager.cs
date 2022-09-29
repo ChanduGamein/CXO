@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
             return (FinishedQuestions.Count < Questions.Length) ? false : true;
         }
     }
-
+  
 
     [SerializeField] public enum QuestionCategory { Type1, Type2, Type3, Type4 };
     public QuestionCategory chooseCategory;
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour {
         if (PhotonNetwork.IsMasterClient) StatusManger.instance.QuestionIndex = GetRandomQuestionIndex();
 
         photonView.RPC("Display", RpcTarget.All);
-        Accept();
+      //  Accept();
     }
     /// <summary>
     /// Function that is called when the behaviour becomes disabled
@@ -196,35 +196,18 @@ public class GameManager : MonoBehaviour {
         FinishedQuestions.Add(currentQuestion);
 
         UpdateScore((isCorrect) ? Questions[currentQuestion].AddScore : 0);// -Questions[currentQuestion].AddScore);
-
-        //if (IsFinished)
+        if (isCorrect)
+        {
+            IntroSceneManager.instance.Timeleft = 45 - timeLeft;
+            IntroSceneManager.instance.ScoreValue += 10;
+           
+            IntroSceneManager.instance.TotalTimeValue += 45 - timeLeft;// IntroSceneManager.instance.Timeleft;
+        }
+        IntroSceneManager.instance.TimeValue = 45 - timeLeft; //IntroSceneManager.instance.Timeleft;
+        IntroSceneManager.instance.RaiseEventObject.UpdateValues();
+        //if (Ques)
         //{
-        //    SetHighscore();
-        //}
-
-        //var type 
-        //    = (IsFinished) 
-        //    ? UIManager.ResolutionScreenType.Finish 
-        //    : (isCorrect) ? UIManager.ResolutionScreenType.Correct 
-        //    : UIManager.ResolutionScreenType.Incorrect;
-
-        //if (events.DisplayResolutionScreen != null)
-        //{
-        //    events.DisplayResolutionScreen(type, Questions[currentQuestion].AddScore);
-        //}
-
-      //  AudioManager.Instance.PlaySound((isCorrect) ? "CorrectSFX" : "IncorrectSFX");
-
-        //if (type != UIManager.ResolutionScreenType.Finish)
-        //{
-        //    if (IE_WaitTillNextRound != null)
-        //    {
-        //        StopCoroutine(IE_WaitTillNextRound);
-        //    }
-        //    IE_WaitTillNextRound = WaitTillNextRound();
-        //    StartCoroutine(IE_WaitTillNextRound);
-
-        //    Debug.Log("IsFinished");
+        //    IntroSceneManager.instance.ResetManagersGrp();
         //}
     }
 
@@ -376,10 +359,12 @@ public class GameManager : MonoBehaviour {
     private void UpdateScore(int add)
     {
         events.CurrentFinalScore += add;
-
+      
         if (events.ScoreUpdated != null)
         {
+            
             events.ScoreUpdated();
+
         }
     }
 
@@ -406,6 +391,8 @@ public class GameManager : MonoBehaviour {
         //        random = UnityEngine.Random.Range(0, Questions.Length);
         //    } while (FinishedQuestions.Contains(random) || random == currentQuestion);
         //}
+
+
         return random;
        
     }

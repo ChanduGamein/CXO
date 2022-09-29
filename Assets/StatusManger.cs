@@ -15,6 +15,10 @@ public class StatusManger : MonoBehaviour, IPunObservable
     public bool StartTimer;
     [SerializeField] GameObject WinnerBG;
     bool isFinished;
+    public int[] scoreList,Timelist;
+    public List<int> Indexlist;
+    public string[] NameList;
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -31,6 +35,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
             QuestionIndex = (int)stream.ReceiveNext();
             QuestionTotal = (int)stream.ReceiveNext();
             Timer = (float)stream.ReceiveNext();
+            if(QuestionTotal > 3) IntroSceneManager.instance.ResetManagersGrp(); 
         }
     }
 
@@ -46,6 +51,9 @@ public class StatusManger : MonoBehaviour, IPunObservable
     void Start()
     {
         Timer = 45;
+       
+       
+      //  GetWinner();
     }
 
     // Update is called once per frame
@@ -101,8 +109,68 @@ public class StatusManger : MonoBehaviour, IPunObservable
     }
     void DisableManagers()
     {
-        IntroSceneManager.instance.ResetManagersGrp();
-        WinnerBG.SetActive(true);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            IntroSceneManager.instance.ResetManagersGrp();
+            WinnerBG.SetActive(true);
+            GetWinner();
+
+        }
 
     }
+    public void GetWinner()
+    {
+        AssignList();
+        int maxElement = scoreList[0];
+        for (int index = 2; index < scoreList.Length; index++)
+        {
+            if (scoreList[index] >= maxElement)
+                maxElement = scoreList[index];
+        }
+        Debug.Log(maxElement);
+        for (int index = 0; index < scoreList.Length; index++)
+        {
+            if (scoreList[index] == maxElement)
+            {
+                Indexlist.Add(index);
+            }
+        }
+        if (Indexlist.Count > 1)
+        {
+            int minElement = Timelist[Indexlist[0]];
+            for (int index=1;index < Indexlist.Count; index++)
+            {
+                if (Timelist[Indexlist[index]] < minElement)
+                {
+                    minElement = Timelist[Indexlist[index]];
+                }
+               
+            }
+            Debug.Log(minElement);
+            for (int index = 0; index < Timelist.Length; index++)
+            {
+                if (Timelist[index] == minElement)
+                {
+                    WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[index];
+                   
+                    return;
+                }
+            }
+
+        }
+        else
+        {
+            WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[Indexlist[0]] ;
+           
+        }
+     
+    }
+    void AssignList()
+    {
+        System.Array.Copy(IntroSceneManager.instance.playerScores, scoreList, 12);
+        System.Array.Copy( IntroSceneManager.instance.TotalTimevalues, Timelist, 12);
+        System.Array.Copy(IntroSceneManager.instance.playerNames, NameList, 12);
+       // scoreList = new List<int>(IntroSceneManager.instance.playerScores);
+    }
+   
 }

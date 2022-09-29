@@ -107,7 +107,7 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        UpdateScoreUI();
+      //  UpdateScoreUI();
         resStateParaHash = Animator.StringToHash("ScreenState");
     }
 
@@ -232,5 +232,6 @@ public class UIManager : MonoBehaviour {
     void UpdateScoreUI()
     {
         uIElements.ScoreText.text = "Score: " + events.CurrentFinalScore;
+      
     }
 }

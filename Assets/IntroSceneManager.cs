@@ -24,12 +24,14 @@ public class IntroSceneManager : MonoBehaviour
     public TextMeshProUGUI UserNameText;
     [SerializeField] Button NextButton;
     public string[] playerNames;
-    public int[] playerScores,Timevalues;
-    public int ScoreValue, TimeValue;
+    public int[] playerScores,TotalTimevalues,QuestionTimevalues;
+    public int ScoreValue, TimeValue, TotalTimeValue;
     public Sprite[] BgImages;
     public Image MainBG;
     [SerializeField] GameObject AdminScreen1,MainGrp,CategoryGrp,UserCanvas,CategoryGrp_User,CategoryMangers,TotalScoreGrp_User;
-
+    public RaiseEvent RaiseEventObject;
+    public TextMeshProUGUI UserScoreText, UserTimeText;
+    public int Timeleft;
     PhotonView photonView;
 
     private void Awake()
@@ -44,7 +46,7 @@ public class IntroSceneManager : MonoBehaviour
     {
         photonView = PhotonView.Get(this);
 
-        playerNames = new string[12];
+       // playerNames = new string[12];
         ChooseCategoryBtn.onClick.AddListener(()=> CategoryBtnOptions());
         CategoryBtns[0].onClick.AddListener(() => SetCategory(0, CategoryBtns[0].gameObject));
         CategoryBtns[1].onClick.AddListener(() => SetCategory(1, CategoryBtns[1].gameObject));
@@ -55,8 +57,8 @@ public class IntroSceneManager : MonoBehaviour
         CategoryBtns[6].onClick.AddListener(() => SetCategory(6, CategoryBtns[6].gameObject));
 
         UserFields[0].onValueChanged.AddListener(delegate { UsernameUpdate(); });
-        UserFields[2].onValueChanged.AddListener(delegate { ScoreUpdate(); });
-        UserFields[3].onValueChanged.AddListener(delegate { TimeUpdate(); });
+      //  UserFields[2].onValueChanged.AddListener(delegate { ScoreUpdate(); });
+       // UserFields[3].onValueChanged.AddListener(delegate { TimeUpdate(); });
         for (int i=0;i< UserFields.Length;i++)
         {
             UserFields[i].onValueChanged.AddListener(delegate { FieldsCheck(); });
@@ -68,14 +70,14 @@ public class IntroSceneManager : MonoBehaviour
     {
         UserNameText.text = UserFields[0].text;
     }
-    void ScoreUpdate()
-    {
-        ScoreValue =(int)float.Parse(UserFields[2].text);
-    }
-    void TimeUpdate()
-    {
-        TimeValue =(int)float.Parse(UserFields[3].text);
-    }
+    //void ScoreUpdate()
+    //{
+    //    ScoreValue =(int)float.Parse(UserFields[2].text);
+    //}
+    //void TimeUpdate()
+    //{
+    //    TimeValue =(int)float.Parse(UserFields[3].text);
+    //}
      
     void  FieldsCheck()
     {
@@ -112,6 +114,7 @@ public class IntroSceneManager : MonoBehaviour
             MainBG.sprite = BgImages[categoryNumber];
             AdminScreen1.SetActive(false);
             CategoryGrp.SetActive(false);
+            AwaitingParticipantsGrp.SetActive(true);
             MainGrp.SetActive(true);
             Questions_Start();
         }
@@ -158,6 +161,8 @@ public class IntroSceneManager : MonoBehaviour
             }
 
             TotalScoreGrp_User.transform.GetChild(StatusManger.instance.CategoryNumber).gameObject.SetActive(true);
+            UserScoreText.text = IntroSceneManager.instance.ScoreValue.ToString();
+            UserTimeText.text = IntroSceneManager.instance.TotalTimeValue.ToString();
         }
       
 
