@@ -32,8 +32,10 @@ public class IntroSceneManager : MonoBehaviour
     public RaiseEvent RaiseEventObject;
     public TextMeshProUGUI UserScoreText, UserTimeText;
     public int Timeleft;
-    public Button SubmitBtn;
+    public Button SubmitBtn,NextBtn_Admin;
     public bool AnswerOnlyOnce;
+    public TextMeshProUGUI MaxQuestiontext_Admin;
+
     PhotonView photonView;
 
     private void Awake()
@@ -48,15 +50,18 @@ public class IntroSceneManager : MonoBehaviour
     {
         photonView = PhotonView.Get(this);
 
-       // playerNames = new string[12];
+       
         ChooseCategoryBtn.onClick.AddListener(()=> CategoryBtnOptions());
-        CategoryBtns[0].onClick.AddListener(() => SetCategory(0, CategoryBtns[0].gameObject));
-        CategoryBtns[1].onClick.AddListener(() => SetCategory(1, CategoryBtns[1].gameObject));
-        CategoryBtns[2].onClick.AddListener(() => SetCategory(2, CategoryBtns[2].gameObject));
-        CategoryBtns[3].onClick.AddListener(() => SetCategory(3, CategoryBtns[3].gameObject));
-        CategoryBtns[4].onClick.AddListener(() => SetCategory(4, CategoryBtns[4].gameObject));
-        CategoryBtns[5].onClick.AddListener(() => SetCategory(5, CategoryBtns[5].gameObject));
-        CategoryBtns[6].onClick.AddListener(() => SetCategory(6, CategoryBtns[6].gameObject));
+        CategoryBtns[0].onClick.AddListener(() => SetCategory(0,3, CategoryBtns[0].gameObject));
+        CategoryBtns[1].onClick.AddListener(() => SetCategory(1,3, CategoryBtns[1].gameObject));
+        CategoryBtns[2].onClick.AddListener(() => SetCategory(2,3, CategoryBtns[2].gameObject));
+        CategoryBtns[3].onClick.AddListener(() => SetCategory(3,10, CategoryBtns[3].gameObject));
+        CategoryBtns[4].onClick.AddListener(() => SetCategory(4,3, CategoryBtns[4].gameObject));
+        CategoryBtns[5].onClick.AddListener(() => SetCategory(5,3, CategoryBtns[5].gameObject));
+        CategoryBtns[6].onClick.AddListener(() => SetCategory(6,3, CategoryBtns[6].gameObject));
+
+
+        NextBtn_Admin.onClick.AddListener(()=> NextQuestion());
 
         UserFields[0].onValueChanged.AddListener(delegate { UsernameUpdate(); });
       //  UserFields[2].onValueChanged.AddListener(delegate { ScoreUpdate(); });
@@ -102,10 +107,12 @@ public class IntroSceneManager : MonoBehaviour
         AwaitingParticipantsGrp.SetActive(false);
             Categoriesgrp.SetActive(true);
     }
-    void SetCategory(int i,GameObject B)
+    void SetCategory(int i, int j,GameObject B)
     {
         categoryNumber = i;
         StatusManger.instance.CategoryNumber = categoryNumber;
+        StatusManger.instance.MaxQuestions = j;
+        MaxQuestiontext_Admin.text = "/ "+j.ToString();
         CategoryName.text = B.name;
         StartGameBtn.interactable = true;
     }
@@ -169,7 +176,20 @@ public class IntroSceneManager : MonoBehaviour
       
 
     }
+    void NextQuestion()
+    {
+        NextBtn_Admin.interactable = false;
+        Questions_Start();
 
+        StartCoroutine(delaystartNextQuestions());
+    }
+    IEnumerator delaystartNextQuestions()
+    {
+        yield return new WaitForSeconds(2f);
+
+        NextBtn_Admin.interactable = true;
+
+    }
     public void ExitGame()
     {
         Application.Quit();

@@ -8,7 +8,7 @@ using TMPro;
 public class StatusManger : MonoBehaviour, IPunObservable
 {
     public static StatusManger instance = null;
-    public int CategoryNumber,QuestionIndex,QuestionTotal;
+    public int CategoryNumber,QuestionIndex,QuestionTotal,MaxQuestions;
     public float Timer;
     public TextMeshProUGUI QuestionText, TimerText,QuestionTotalText;
     public Image TimerImage;
@@ -26,6 +26,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
             stream.SendNext(CategoryNumber);
             stream.SendNext(QuestionIndex);
             stream.SendNext(QuestionTotal);
+            stream.SendNext(MaxQuestions);
             stream.SendNext(Timer);
 
         }
@@ -34,8 +35,9 @@ public class StatusManger : MonoBehaviour, IPunObservable
             CategoryNumber = (int)stream.ReceiveNext();
             QuestionIndex = (int)stream.ReceiveNext();
             QuestionTotal = (int)stream.ReceiveNext();
+            MaxQuestions = (int)stream.ReceiveNext();
             Timer = (float)stream.ReceiveNext();
-            if(QuestionTotal > 3) IntroSceneManager.instance.ResetManagersGrp(); 
+            if(QuestionTotal > MaxQuestions) IntroSceneManager.instance.ResetManagersGrp(); 
         }
     }
 
@@ -51,17 +53,17 @@ public class StatusManger : MonoBehaviour, IPunObservable
     void Start()
     {
         Timer = 45;
-       
-       
+        MaxQuestions = 3;
+
       //  GetWinner();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (QuestionTotal <= 3)
+        if (QuestionTotal <= MaxQuestions)
         {
-            if (StartTimer && Timer > 0&& QuestionTotal <= 3)
+            if (StartTimer && Timer > 0)
             {
 
                 Timer -= Time.deltaTime;
@@ -80,7 +82,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
             {
                 if (Timer < 0)
                 {
-                    if (QuestionTotal <= 3)
+                    if (QuestionTotal <= MaxQuestions)
                     {
                         IntroSceneManager.instance.Questions_Start();
 
