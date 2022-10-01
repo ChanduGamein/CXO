@@ -31,8 +31,10 @@ public class IntroSceneManager : MonoBehaviour
     [SerializeField] GameObject AdminScreen1,MainGrp,CategoryGrp,UserCanvas,CategoryGrp_User,CategoryMangers,TotalScoreGrp_User;
     public RaiseEvent RaiseEventObject;
     public TextMeshProUGUI UserScoreText, UserTimeText;
+    public TextMeshProUGUI[] UserScoreTextGrp, UserTimeTextGrp;
     public int Timeleft;
-    public Button SubmitBtn,NextBtn_Admin;
+    public Button NextBtn_Admin;
+    public Button[] SubmitBtnsGrp;
     public bool AnswerOnlyOnce;
     public TextMeshProUGUI MaxQuestiontext_Admin;
     public GameObject PunMangerObject;
@@ -171,8 +173,13 @@ public class IntroSceneManager : MonoBehaviour
             }
 
             TotalScoreGrp_User.transform.GetChild(StatusManger.instance.CategoryNumber).gameObject.SetActive(true);
-            UserScoreText.text = IntroSceneManager.instance.ScoreValue.ToString();
-            UserTimeText.text = IntroSceneManager.instance.TotalTimeValue.ToString();
+            UserScoreText.text =ScoreValue.ToString();
+            UserTimeText.text = TotalTimeValue.ToString();
+            for (int i=0;i< UserScoreTextGrp.Length;i++)
+            {
+                UserScoreTextGrp[i].text = ScoreValue.ToString();
+                UserTimeTextGrp[i].text = TotalTimeValue.ToString();
+            }
         }
       
 
