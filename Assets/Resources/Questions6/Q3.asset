@@ -21,8 +21,7 @@ MonoBehaviour:
     _isCorrect: 0
   - _info: Security and network access are delivered based on IP address
     _isCorrect: 1
-  - _info: Implementing data protection policies within a SASE framework helps prevent
-      unauthorized access and abuse of sensitive data
+  - _info: Implementing data protection policies within a SASE framework
     _isCorrect: 0
   _useTimer: 1
   _timer: 45

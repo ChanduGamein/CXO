@@ -713,7 +713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &29682542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17296,7 +17296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: /10
+  m_text: /7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
   m_sharedMaterial: {fileID: 1113852092838896147, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
@@ -18386,7 +18386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: /10
+  m_text: /2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
   m_sharedMaterial: {fileID: 1113852092838896147, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
@@ -20249,7 +20249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: /4
+  m_text: /8
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
   m_sharedMaterial: {fileID: 1113852092838896147, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
@@ -32104,7 +32104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1144318005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35274,7 +35274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1250200259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35291,7 +35291,7 @@ MonoBehaviour:
   PlayerObject: {fileID: 0}
   PlayerPrefab: {fileID: 272726080591054643, guid: eccc16697fc9fc0429d1505f3f128418, type: 3}
   Room_Name: CXO
-  IsAdmin: 0
+  IsAdmin: 1
 --- !u!4 &1250200260
 Transform:
   m_ObjectHideFlags: 0
@@ -38716,7 +38716,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1386484151}
   m_OnClick:
     m_PersistentCalls:
@@ -47129,7 +47129,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: /10
+  m_text: /7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
   m_sharedMaterial: {fileID: 1113852092838896147, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}

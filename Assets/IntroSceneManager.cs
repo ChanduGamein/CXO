@@ -187,6 +187,7 @@ public class IntroSceneManager : MonoBehaviour
     void NextQuestion()
     {
         NextBtn_Admin.interactable = false;
+          
         Questions_Start();
 
         StartCoroutine(delaystartNextQuestions());

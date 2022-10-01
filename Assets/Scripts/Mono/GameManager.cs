@@ -174,7 +174,10 @@ public class GameManager : MonoBehaviour {
    public void Display()
    {
         QuestionTotalText.text = StatusManger.instance.QuestionTotal.ToString();
-      if(StatusManger.instance.QuestionTotal<= Questions.Length)  StartCoroutine(_DisplayQuestion());
+        IntroSceneManager.instance.TimeValue = 0;
+        IntroSceneManager.instance.RaiseEventObject.UpdateValues();
+
+        if (StatusManger.instance.QuestionTotal<= Questions.Length)  StartCoroutine(_DisplayQuestion());
    }
     IEnumerator _DisplayQuestion()
     {
