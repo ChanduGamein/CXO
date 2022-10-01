@@ -162,7 +162,7 @@ public class PunManager : MonoBehaviourPunCallbacks {
     }
     IEnumerator AddPlayerName(GameObject B)
     {
-        yield return new WaitForSeconds(5f);      
+        yield return new WaitForSeconds(3f);      
       if (!String.IsNullOrEmpty(IntroSceneManager.instance.playerNames[PlayerCount])) 
             B.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = IntroSceneManager.instance.playerNames[PlayerCount];
 
