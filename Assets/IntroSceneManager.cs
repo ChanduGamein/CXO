@@ -32,6 +32,8 @@ public class IntroSceneManager : MonoBehaviour
     public RaiseEvent RaiseEventObject;
     public TextMeshProUGUI UserScoreText, UserTimeText;
     public int Timeleft;
+    public Button SubmitBtn;
+    public bool AnswerOnlyOnce;
     PhotonView photonView;
 
     private void Awake()

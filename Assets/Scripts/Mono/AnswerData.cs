@@ -65,6 +65,8 @@ public class AnswerData : MonoBehaviour {
         {
             events.UpdateQuestionAnswer(this);
         }
+      if(!IntroSceneManager.instance.AnswerOnlyOnce)  IntroSceneManager.instance.SubmitBtn.interactable = true;
+
     }
     /// <summary>
     /// Function that is called to update UI.

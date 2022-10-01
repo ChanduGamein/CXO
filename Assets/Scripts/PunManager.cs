@@ -130,8 +130,12 @@ public class PunManager : MonoBehaviourPunCallbacks {
                 B.transform.SetParent(IntroSceneManager.instance.HorizontalPrefabObject.transform);
                 B.transform.localPosition = Vector3.zero;
                 B.transform.localScale = Vector3.one;
+                //B.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = IntroSceneManager.instance.playerNames[PlayerCount];
+
                 B.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =(PlayerCount - 1).ToString();
                 IntroSceneManager.instance.ParticipantList.Add(B);
+                StartCoroutine(AddPlayerName(B));
+
             }
             else
             {
@@ -139,18 +143,28 @@ public class PunManager : MonoBehaviourPunCallbacks {
                 B.transform.SetParent(IntroSceneManager.instance.HorizontalPrefabObject.transform);
                 B.transform.localPosition = Vector3.zero;
                 B.transform.localScale = Vector3.one;
+              //  B.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = IntroSceneManager.instance.playerNames[PlayerCount];
+
                 B.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = (PlayerCount - 1).ToString();
                 IntroSceneManager.instance.ParticipantList.Add(B);
+                StartCoroutine(AddPlayerName(B));
 
             }
+
         }
-       
+
         if (PlayerCount > 4)
         {
             IntroSceneManager.instance.ChooseCategoryBtn.interactable = true;
 
         }
-       // GameStatusManager.instance.PlayerNumber = newPlayer.ActorNumber;
+        // GameStatusManager.instance.PlayerNumber = newPlayer.ActorNumber;
+    }
+    IEnumerator AddPlayerName(GameObject B)
+    {
+        yield return new WaitForSeconds(5f);      
+      if (!String.IsNullOrEmpty(IntroSceneManager.instance.playerNames[PlayerCount])) 
+            B.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = IntroSceneManager.instance.playerNames[PlayerCount];
 
     }
     public override void OnPlayerLeftRoom(Player otherPlayer) {

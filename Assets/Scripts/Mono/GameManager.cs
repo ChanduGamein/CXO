@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour {
    public void Display()
    {
         QuestionTotalText.text = StatusManger.instance.QuestionTotal.ToString();
-      if(StatusManger.instance.QuestionTotal<=3)  StartCoroutine(_DisplayQuestion());
+      if(StatusManger.instance.QuestionTotal<= Questions.Length)  StartCoroutine(_DisplayQuestion());
    }
     IEnumerator _DisplayQuestion()
     {
@@ -183,7 +183,8 @@ public class GameManager : MonoBehaviour {
             {
                 UpdateTimer(question.UseTimer);
             }
-        
+            IntroSceneManager.instance.AnswerOnlyOnce = false;
+
 
     }
     /// <summary>
@@ -191,11 +192,12 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void Accept()
     {
+
         UpdateTimer(false);
         bool isCorrect = CheckAnswers();
         FinishedQuestions.Add(currentQuestion);
 
-        UpdateScore((isCorrect) ? Questions[currentQuestion].AddScore : 0);// -Questions[currentQuestion].AddScore);
+      if(!IntroSceneManager.instance.AnswerOnlyOnce)  UpdateScore((isCorrect) ? Questions[currentQuestion].AddScore : 0);// -Questions[currentQuestion].AddScore);
         if (isCorrect)
         {
             IntroSceneManager.instance.Timeleft = 45 - timeLeft;
@@ -205,6 +207,8 @@ public class GameManager : MonoBehaviour {
         }
         IntroSceneManager.instance.TimeValue = 45 - timeLeft; //IntroSceneManager.instance.Timeleft;
         IntroSceneManager.instance.RaiseEventObject.UpdateValues();
+        IntroSceneManager.instance.AnswerOnlyOnce = true;
+
         //if (Ques)
         //{
         //    IntroSceneManager.instance.ResetManagersGrp();
@@ -258,8 +262,6 @@ public class GameManager : MonoBehaviour {
            // timeLeft--;
 
          
-           
-
             TimerImageHolder.fillAmount = (timeLeft / 45f);
           
             if (timeLeft<30 && timeLeft > 15)
@@ -303,6 +305,7 @@ public class GameManager : MonoBehaviour {
     {
         if (PickedAnswers.Count > 0)
         {
+
             List<int> c = Questions[currentQuestion].GetCorrectAnswers();
             List<int> p = PickedAnswers.Select(x => x.AnswerIndex).ToList();
 
@@ -311,6 +314,7 @@ public class GameManager : MonoBehaviour {
 
             return !f.Any() && !s.Any();
         }
+
         return false;
     }
 
