@@ -106,7 +106,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
 
     public void TimerStart()
     {
-        Timer = 10;
+        Timer = 45;
         StartTimer = true;
     }
     void DisableManagers()
@@ -117,6 +117,11 @@ public class StatusManger : MonoBehaviour, IPunObservable
             WinnerBG.SetActive(true);
             GetWinner();
 
+        }
+        else
+        {
+            PhotonNetwork.Disconnect();
+            IntroSceneManager.instance.PunMangerObject.SetActive(false);
         }
 
     }

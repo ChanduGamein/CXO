@@ -35,7 +35,7 @@ public class IntroSceneManager : MonoBehaviour
     public Button SubmitBtn,NextBtn_Admin;
     public bool AnswerOnlyOnce;
     public TextMeshProUGUI MaxQuestiontext_Admin;
-
+    public GameObject PunMangerObject;
     PhotonView photonView;
 
     private void Awake()
