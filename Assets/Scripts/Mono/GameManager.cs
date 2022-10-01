@@ -105,14 +105,14 @@ public class GameManager : MonoBehaviour {
         } else if (chooseCategory == QuestionCategory.Type4)
         {
             LoadQuestions("Questions4");
-        } else if (chooseCategory == QuestionCategory.Type2)
+        } else if (chooseCategory == QuestionCategory.Type5)
         {
             LoadQuestions("Questions5");
         }
-        else if (chooseCategory == QuestionCategory.Type3)
+        else if (chooseCategory == QuestionCategory.Type6)
         {
             LoadQuestions("Questions6");
-        } else if (chooseCategory == QuestionCategory.Type4)
+        } else if (chooseCategory == QuestionCategory.Type7)
         {
             LoadQuestions("Questions7");
         }

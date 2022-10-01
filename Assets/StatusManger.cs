@@ -135,41 +135,50 @@ public class StatusManger : MonoBehaviour, IPunObservable
                 maxElement = scoreList[index];
         }
         Debug.Log(maxElement);
-        for (int index = 0; index < scoreList.Length; index++)
+        if (maxElement==0)
         {
-            if (scoreList[index] == maxElement)
-            {
-                Indexlist.Add(index);
-            }
-        }
-        if (Indexlist.Count > 1)
-        {
-            int minElement = Timelist[Indexlist[0]];
-            for (int index=1;index < Indexlist.Count; index++)
-            {
-                if (Timelist[Indexlist[index]] < minElement)
-                {
-                    minElement = Timelist[Indexlist[index]];
-                }
-               
-            }
-            Debug.Log(minElement);
-            for (int index = 0; index < Timelist.Length; index++)
-            {
-                if (Timelist[index] == minElement)
-                {
-                    WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[index];
-                   
-                    return;
-                }
-            }
+            WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text ="No Winner";
 
         }
         else
         {
-            WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[Indexlist[0]] ;
-           
+            for (int index = 0; index < scoreList.Length; index++)
+            {
+                if (scoreList[index] == maxElement)
+                {
+                    Indexlist.Add(index);
+                }
+            }
+            if (Indexlist.Count > 1)
+            {
+                int minElement = Timelist[Indexlist[0]];
+                for (int index = 1; index < Indexlist.Count; index++)
+                {
+                    if (Timelist[Indexlist[index]] < minElement)
+                    {
+                        minElement = Timelist[Indexlist[index]];
+                    }
+
+                }
+                Debug.Log(minElement);
+                for (int index = 0; index < Timelist.Length; index++)
+                {
+                    if (Timelist[index] == minElement)
+                    {
+                        WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[index];
+
+                        return;
+                    }
+                }
+
+            }
+            else
+            {
+                WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[Indexlist[0]];
+
+            }
         }
+    
      
     }
     void AssignList()

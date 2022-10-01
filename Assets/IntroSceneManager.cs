@@ -54,13 +54,13 @@ public class IntroSceneManager : MonoBehaviour
 
        
         ChooseCategoryBtn.onClick.AddListener(()=> CategoryBtnOptions());
-        CategoryBtns[0].onClick.AddListener(() => SetCategory(0,3, CategoryBtns[0].gameObject));
-        CategoryBtns[1].onClick.AddListener(() => SetCategory(1,3, CategoryBtns[1].gameObject));
-        CategoryBtns[2].onClick.AddListener(() => SetCategory(2,3, CategoryBtns[2].gameObject));
+        CategoryBtns[0].onClick.AddListener(() => SetCategory(0,4, CategoryBtns[0].gameObject));
+        CategoryBtns[1].onClick.AddListener(() => SetCategory(1,4, CategoryBtns[1].gameObject));
+        CategoryBtns[2].onClick.AddListener(() => SetCategory(2,8, CategoryBtns[2].gameObject));
         CategoryBtns[3].onClick.AddListener(() => SetCategory(3,10, CategoryBtns[3].gameObject));
-        CategoryBtns[4].onClick.AddListener(() => SetCategory(4,3, CategoryBtns[4].gameObject));
-        CategoryBtns[5].onClick.AddListener(() => SetCategory(5,3, CategoryBtns[5].gameObject));
-        CategoryBtns[6].onClick.AddListener(() => SetCategory(6,3, CategoryBtns[6].gameObject));
+        CategoryBtns[4].onClick.AddListener(() => SetCategory(4,7, CategoryBtns[4].gameObject));
+        CategoryBtns[5].onClick.AddListener(() => SetCategory(5,7, CategoryBtns[5].gameObject));
+        CategoryBtns[6].onClick.AddListener(() => SetCategory(6,2, CategoryBtns[6].gameObject));
 
 
         NextBtn_Admin.onClick.AddListener(()=> NextQuestion());
