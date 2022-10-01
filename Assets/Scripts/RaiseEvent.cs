@@ -96,7 +96,7 @@ public class RaiseEvent : MonoBehaviourPun {
             }            
         }
         playerJoined = true;
-        PlayerName = IntroSceneManager.instance.UserNameText.text;
+        PlayerName = IntroSceneManager.instance.UserNameText.text+" "+ IntroSceneManager.instance.UserFields[1].text;
        
            ScoreValue = IntroSceneManager.instance.ScoreValue;
          TimeValue = IntroSceneManager.instance.TimeValue;
