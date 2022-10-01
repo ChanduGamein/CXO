@@ -6509,7 +6509,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Loading....
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
   m_sharedMaterial: {fileID: 1113852092838896147, guid: 76e25f084f2915949a9f5c0249b27eb5, type: 2}
