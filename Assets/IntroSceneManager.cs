@@ -26,8 +26,8 @@ public class IntroSceneManager : MonoBehaviour
     public string[] playerNames;
     public int[] playerScores,TotalTimevalues,QuestionTimevalues;
     public int ScoreValue, TimeValue, TotalTimeValue;
-    public Sprite[] BgImages;
-    public Image MainBG;
+    public Sprite[] BgImages,CategoryLogoSprites;
+    public Image MainBG,CategoryLogoImage;
     [SerializeField] GameObject AdminScreen1,MainGrp,CategoryGrp,UserCanvas,CategoryGrp_User,CategoryMangers,TotalScoreGrp_User;
     public RaiseEvent RaiseEventObject;
     public TextMeshProUGUI UserScoreText, UserTimeText;
@@ -121,6 +121,7 @@ public class IntroSceneManager : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             MainBG.sprite = BgImages[categoryNumber];
+            CategoryLogoImage.sprite = CategoryLogoSprites[categoryNumber];
             AdminScreen1.SetActive(false);
             CategoryGrp.SetActive(false);
             AwaitingParticipantsGrp.SetActive(true);

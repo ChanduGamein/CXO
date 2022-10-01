@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour {
     }
   
 
-    [SerializeField] public enum QuestionCategory { Type1, Type2, Type3, Type4 };
+    [SerializeField] public enum QuestionCategory { Type1, Type2, Type3, Type4,Type5, Type6, Type7 };
     public QuestionCategory chooseCategory;
     [SerializeField] Image TimerImageHolder;
     [SerializeField] TextMeshProUGUI QuestionTotalText;
@@ -105,6 +105,16 @@ public class GameManager : MonoBehaviour {
         } else if (chooseCategory == QuestionCategory.Type4)
         {
             LoadQuestions("Questions4");
+        } else if (chooseCategory == QuestionCategory.Type2)
+        {
+            LoadQuestions("Questions5");
+        }
+        else if (chooseCategory == QuestionCategory.Type3)
+        {
+            LoadQuestions("Questions6");
+        } else if (chooseCategory == QuestionCategory.Type4)
+        {
+            LoadQuestions("Questions7");
         }
 
         timerStateParaHash = Animator.StringToHash("TimerState");
