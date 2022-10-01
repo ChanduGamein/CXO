@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q3
   m_EditorClassIdentifier: 
-  _info: Which form factors support the security subscriptions?
+  _info: What is the difference between a vulnerability and a malware?
   _answers:
-  - _info: PA Series (HW)
+  - _info: Both are the same
     _isCorrect: 0
-  - _info: VM Series
+  - _info: Vulnerability is an executable file while malware is a deficiency in code
     _isCorrect: 0
-  - _info: Prisma Access
-    _isCorrect: 0
-  - _info: all of the above
+  - _info: Vulnerability is a deficiency in code while malware is an executable file
     _isCorrect: 1
+  - _info: Vulnerability is not a risk and malware is a type of malicious software
+    _isCorrect: 0
   _useTimer: 1
   _timer: 45
   _answerType: 1

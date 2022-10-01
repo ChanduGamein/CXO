@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
-  m_Name: SunTemperature
+  m_Name: Q3
   m_EditorClassIdentifier: 
-  _info: The temperature of the sun is about ..
+  _info: What are the main use cases of Cortex XSOAR?
   _answers:
-  - _info: 10,000 Fahrenheit
+  - _info: workflow automation
+    _isCorrect: 0
+  - _info: incident management
+    _isCorrect: 0
+  - _info: threat intel management
+    _isCorrect: 0
+  - _info: all of the above
     _isCorrect: 1
-  - _info: 100,000 Fahrenheit
-    _isCorrect: 0
-  - _info: 1,000 Fahrenheit
-    _isCorrect: 0
   _useTimer: 1
   _timer: 45
   _answerType: 1

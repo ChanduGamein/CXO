@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q1
   m_EditorClassIdentifier: 
-  _info: "How many CDSS (Cloud Delivered \nSecurity Services like TP, WF, DNS\u2026)\ndoes
-    Palo Alto\r \nNetworks have?"
+  _info: What is Zero Trust
   _answers:
-  - _info: 5
+  - _info: Trusting all inside users
     _isCorrect: 0
-  - _info: 6
+  - _info: Untrusting all outside users
     _isCorrect: 0
-  - _info: 9
-    _isCorrect: 0
-  - _info: 10
+  - _info: Eliminating implicit trust
     _isCorrect: 1
+  - _info: A&B
+    _isCorrect: 0
   _useTimer: 1
   _timer: 45
   _answerType: 1

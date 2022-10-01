@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q2
   m_EditorClassIdentifier: 
-  _info: What drives Zero Trust Adoption
+  _info: What does Cortex XPANSE help you with?
   _answers:
-  - _info: Network transformation
-    _isCorrect: 0
-  - _info: Moving to the cloud
-    _isCorrect: 0
-  - _info: SecOps transformation
-    _isCorrect: 0
-  - _info: All the above
+  - _info: discover, evaluate and mitigate cyber attack surface risks for internet-facing
+      assets
     _isCorrect: 1
+  - _info: automation and orchestration
+    _isCorrect: 0
+  - _info: endpoint prevention
+    _isCorrect: 0
+  - _info: malware analysis
+    _isCorrect: 0
   _useTimer: 1
   _timer: 45
   _answerType: 1

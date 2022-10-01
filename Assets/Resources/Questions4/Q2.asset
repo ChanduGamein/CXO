@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
-  m_Name: TallestMountain
+  m_Name: Q2
   m_EditorClassIdentifier: 
-  _info: Tallest mountain?
+  _info: What does DNS security protect you from?
   _answers:
-  - _info: Makalu
+  - _info: known and unknown bad domains
     _isCorrect: 0
-  - _info: Mount Everest
+  - _info: dns tunneling
+    _isCorrect: 0
+  - _info: DGA
+    _isCorrect: 0
+  - _info: all of the above
     _isCorrect: 1
-  - _info: Cho Oyu
-    _isCorrect: 0
   _useTimer: 1
   _timer: 45
   _answerType: 1
