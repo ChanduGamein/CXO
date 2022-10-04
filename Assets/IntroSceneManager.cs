@@ -20,7 +20,7 @@ public class IntroSceneManager : MonoBehaviour
     [SerializeField] Button StartGameBtn;
     [SerializeField] GameObject AwaitingParticipantsGrp, Categoriesgrp;
     public GameObject UserText;
-    public TMP_InputField[] UserFields;
+    public TextChecker[] UserFields;
     public TextMeshProUGUI UserNameText;
     [SerializeField] Button NextButton;
     public string[] playerNames;
@@ -39,7 +39,7 @@ public class IntroSceneManager : MonoBehaviour
     public TextMeshProUGUI MaxQuestiontext_Admin;
     public GameObject PunMangerObject;
     PhotonView photonView;
-
+    
     private void Awake()
     {
         if (instance==null)
@@ -65,19 +65,19 @@ public class IntroSceneManager : MonoBehaviour
 
         NextBtn_Admin.onClick.AddListener(()=> NextQuestion());
 
-        UserFields[0].onValueChanged.AddListener(delegate { UsernameUpdate(); });
+       // UserFields[0].onValueChanged.AddListener(delegate { UsernameUpdate(); });
       //  UserFields[2].onValueChanged.AddListener(delegate { ScoreUpdate(); });
        // UserFields[3].onValueChanged.AddListener(delegate { TimeUpdate(); });
         for (int i=0;i< UserFields.Length;i++)
         {
-            UserFields[i].onValueChanged.AddListener(delegate { FieldsCheck(); });
+         //   UserFields[i].onValueChanged.AddListener(delegate { FieldsCheck(); });
 
         }
     }
 
     void UsernameUpdate()
     {
-        UserNameText.text = UserFields[0].text;
+        UserNameText.text = UserFields[0].GetComponent<WebGLNativeInputField>().text+ UserFields[1].GetComponent<WebGLNativeInputField>().text;// UserFields[0].text;
     }
     //void ScoreUpdate()
     //{
@@ -90,18 +90,33 @@ public class IntroSceneManager : MonoBehaviour
      
     void  FieldsCheck()
     {
-        if (UserFields[0].text.Length>0&&UserFields[1].text.Length>0&&UserFields[2].text.Length>0&&UserFields[3].text.Length>0&&UserFields[4].text.Length>0)
-        {
-            NextButton.interactable = true;
-        }
-        else
-        {
-            NextButton.interactable = false;
-        }
+        //if (UserFields[0].text.Length>0&&UserFields[1].text.Length>0&&UserFields[2].text.Length>0&&UserFields[3].text.Length>0&&UserFields[4].text.Length>0)
+        //{
+        //    NextButton.interactable = true;
+        //}
+        //else
+        //{
+        //    NextButton.interactable = false;
+        //}
     }
     private void Update()
     {
-        
+        UsernameUpdate();
+
+       /// if (!NextButton.interactable)
+        {
+            if (UserFields[0].GetComponent<TextChecker>().TextFilled && UserFields[1].GetComponent<TextChecker>().TextFilled &&
+                UserFields[2].GetComponent<TextChecker>().TextFilled && UserFields[3].GetComponent<TextChecker>().TextFilled &&
+                UserFields[4].GetComponent<TextChecker>().TextFilled)
+            {
+                NextButton.interactable = true;
+            }
+            else
+            {
+               // NextButton.interactable = false;
+            }
+        }
+      
     }
     void CategoryBtnOptions()
     {

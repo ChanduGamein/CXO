@@ -16,9 +16,9 @@ public class StatusManger : MonoBehaviour, IPunObservable
     [SerializeField] GameObject WinnerBG;
     bool isFinished;
     public int[] scoreList,Timelist;
-    public List<int> Indexlist;
+    public List<int> Indexlist,MainGrpList;
     public string[] NameList;
-
+    int checkindex,tempValue;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -54,8 +54,12 @@ public class StatusManger : MonoBehaviour, IPunObservable
     {
         Timer = 45;
         MaxQuestions = 3;
+        AssignList();
+        for (int i = 1; i < PunManager.instance.PlayerCount; i++)
+        {
+            GetWinner();
+        }
 
-      //  GetWinner();
     }
 
     // Update is called once per frame
@@ -114,8 +118,13 @@ public class StatusManger : MonoBehaviour, IPunObservable
         if (PhotonNetwork.IsMasterClient)
         {
             IntroSceneManager.instance.ResetManagersGrp();
-            WinnerBG.SetActive(true);
-            GetWinner();
+          //  WinnerBG.SetActive(true);
+            AssignList();
+
+            for (int i = 1; i < PunManager.instance.PlayerCount; i++)
+            {
+                GetWinner();
+            }
 
         }
         else
@@ -125,9 +134,13 @@ public class StatusManger : MonoBehaviour, IPunObservable
         }
 
     }
+    public void RevealWinner()
+    {
+         WinnerBG.SetActive(true);
+    }
     public void GetWinner()
     {
-        AssignList();
+        Indexlist.Clear();
         int maxElement = scoreList[0];
         for (int index = 2; index < scoreList.Length; index++)
         {
@@ -138,7 +151,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
         if (maxElement==0)
         {
             WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text ="No Winner";
-
+            return;
         }
         else
         {
@@ -165,8 +178,22 @@ public class StatusManger : MonoBehaviour, IPunObservable
                 {
                     if (Timelist[index] == minElement)
                     {
-                        WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[index];
+                       
+                        if (checkindex > 0)
+                        {
+                            if (tempValue != index) MainGrpList.Add(index);
+                        }
+                        else
+                        {
+                            MainGrpList.Add(index);
+                        }
 
+                        checkindex++;
+                        tempValue = index;
+
+                        scoreList[index] = 1;
+                        Timelist[index] = 10000;
+                        WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[MainGrpList[0]];// NameList[index];
                         return;
                     }
                 }
@@ -174,7 +201,19 @@ public class StatusManger : MonoBehaviour, IPunObservable
             }
             else
             {
-                WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[Indexlist[0]];
+                if (checkindex > 0) {
+                  if (tempValue != Indexlist[0])  MainGrpList.Add(Indexlist[0]); 
+                }
+                else { 
+                    MainGrpList.Add(Indexlist[0]);
+                }
+
+                checkindex++;
+                tempValue = Indexlist[0];
+
+                scoreList[Indexlist[0]]= 1;
+                Timelist[Indexlist[0]] = 10000;
+                WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[MainGrpList[0]]; // NameList[Indexlist[0]];
 
             }
         }
@@ -184,9 +223,11 @@ public class StatusManger : MonoBehaviour, IPunObservable
     void AssignList()
     {
         System.Array.Copy(IntroSceneManager.instance.playerScores, scoreList, 12);
-        System.Array.Copy( IntroSceneManager.instance.TotalTimevalues, Timelist, 12);
+        System.Array.Copy(IntroSceneManager.instance.TotalTimevalues, Timelist, 12);
         System.Array.Copy(IntroSceneManager.instance.playerNames, NameList, 12);
-       // scoreList = new List<int>(IntroSceneManager.instance.playerScores);
+
+        // scoreList = new List<int>(IntroSceneManager.instance.playerScores);
+
     }
    
 }

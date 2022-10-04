@@ -52,6 +52,7 @@ public class AnswerData : MonoBehaviour {
     {
         Checked = false;
         UpdateUI();
+     
     }
     /// <summary>
     /// Function that is called to switch the state.
@@ -65,11 +66,14 @@ public class AnswerData : MonoBehaviour {
         {
             events.UpdateQuestionAnswer(this);
         }
-      if(!IntroSceneManager.instance.AnswerOnlyOnce)
-            for (int i=0;i< IntroSceneManager.instance.SubmitBtnsGrp.Length;i++)
+        if (!IntroSceneManager.instance.AnswerOnlyOnce)
+        {
+            for (int i = 0; i < IntroSceneManager.instance.SubmitBtnsGrp.Length; i++)
             {
                 IntroSceneManager.instance.SubmitBtnsGrp[i].interactable = true;
             }
+        }
+          
     }
     /// <summary>
     /// Function that is called to update UI.
