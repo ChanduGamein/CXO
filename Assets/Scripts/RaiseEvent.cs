@@ -99,7 +99,7 @@ public class RaiseEvent : MonoBehaviourPun {
         PlayerName = IntroSceneManager.instance.UserNameText.text;// +" "+ IntroSceneManager.instance.UserFields[1].text;
        
            ScoreValue = IntroSceneManager.instance.ScoreValue;
-         TimeValue = IntroSceneManager.instance.TimeValue;
+       if(IntroSceneManager.instance.TimeValue<=45)  TimeValue = IntroSceneManager.instance.TimeValue;
         TotalTimeValue = IntroSceneManager.instance.TotalTimeValue;
         object[] datas = new object[] { playerJoined, ScoreValue, TimeValue, PlayerName, Playernumber, TotalTimeValue };
 

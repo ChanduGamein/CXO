@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _info: Which of the following statements is incorrect about SASE?
   _answers:
-  - _info: With a cloud infrastructure, you can easily connect to wherever resources
-      are located
+  - _info: With cloud infrastructure, you can easily connect,wherever resources are
+      located
     _isCorrect: 0
   - _info: Access to apps, the internet and corporate data is available globally
     _isCorrect: 0

@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _info: What makes Cortex XDR so unique?
   _answers:
-  - _info: it collects and analyzes data from endpoint, network, cloud and third
+  - _info: It collects and analyzes data from endpoint, network, cloud and third
       party devices
     _isCorrect: 0
-  - _info: it provides best in class endpoint prevention mechanisms
+  - _info: It provides best in class endpoint prevention mechanisms
     _isCorrect: 0
-  - _info: it reduces time to investigate and respond to attacks
+  - _info: It reduces time to investigate and respond to attacks
     _isCorrect: 0
-  - _info: all of the above
+  - _info: All of the above
     _isCorrect: 1
   _useTimer: 1
   _timer: 45

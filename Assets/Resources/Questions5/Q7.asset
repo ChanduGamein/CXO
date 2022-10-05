@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q7
   m_EditorClassIdentifier: 
-  _info: Prisma Access depends on hardware equipment installed on premises.
+  _info: 'Prisma Cloud Provides can provide which of the following capabilities:'
   _answers:
-  - _info: 'True
-
-
-'
+  - _info: Cloud Security Posture Management (CSPM)
     _isCorrect: 0
-  - _info: False
+  - _info: Cloud Workload Protection (CWP)
+    _isCorrect: 0
+  - _info: Cloud Code Security (CCS)
+    _isCorrect: 0
+  - _info: All of the above
     _isCorrect: 1
   _useTimer: 1
   _timer: 45

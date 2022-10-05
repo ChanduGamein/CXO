@@ -12,15 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q2
   m_EditorClassIdentifier: 
-  _info: What kind of capabilities does Prisma SASE provide?
+  _info: Prisma Cloud can secure only public cloud environments ?
   _answers:
-  - _info: SD-WAN
+  - _info: True
     _isCorrect: 0
-  - _info: ZTNA
-    _isCorrect: 0
-  - _info: Autonomous Digital Experience Management
-    _isCorrect: 0
-  - _info: All the above
+  - _info: False
     _isCorrect: 1
   _useTimer: 1
   _timer: 45

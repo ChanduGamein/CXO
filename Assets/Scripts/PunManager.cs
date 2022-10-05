@@ -173,7 +173,7 @@ public class PunManager : MonoBehaviourPunCallbacks {
        
         if (PlayerCount > 1) {
             Debug.Log(IntroSceneManager.instance.ParticipantList.Count);
-            IntroSceneManager.instance.ParticipantList[otherPlayer.ActorNumber - 2].transform.GetChild(2).GetComponent<Image>().sprite = IntroSceneManager.instance.CrossSprite;
+            IntroSceneManager.instance.ParticipantList[otherPlayer.ActorNumber - 2].transform.GetChild(3).GetComponent<Image>().sprite = IntroSceneManager.instance.CrossSprite;
             IntroSceneManager.instance.PlayerLeftCOunter++;
         }
         if (IntroSceneManager.instance.ParticipantList.Count- IntroSceneManager.instance.PlayerLeftCOunter < 4)
@@ -282,7 +282,6 @@ public class PunManager : MonoBehaviourPunCallbacks {
     }
     IEnumerator loadscene()
     {
-        yield return new WaitForSeconds(5f);
         PhotonNetwork.Disconnect();
 
         PhotonNetwork.LeaveRoom();

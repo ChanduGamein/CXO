@@ -13,7 +13,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
     public TextMeshProUGUI QuestionText, TimerText,QuestionTotalText;
     public Image TimerImage;
     public bool StartTimer;
-    [SerializeField] GameObject WinnerBG;
+    public GameObject WinnerBG;
     bool isFinished;
     public int[] scoreList,Timelist;
     public List<int> Indexlist,MainGrpList;
@@ -54,12 +54,12 @@ public class StatusManger : MonoBehaviour, IPunObservable
     {
         Timer = 45;
         MaxQuestions = 3;
-        AssignList();
-        for (int i = 1; i < PunManager.instance.PlayerCount; i++)
-        {
-            GetWinner();
-        }
-
+        //AssignList();
+        //for (int i = 0; i < PunManager.instance.PlayerCount-1; i++)
+        //{
+        //    GetWinner();
+        //}
+      
     }
 
     // Update is called once per frame
@@ -121,7 +121,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
           //  WinnerBG.SetActive(true);
             AssignList();
 
-            for (int i = 1; i < PunManager.instance.PlayerCount; i++)
+            for (int i = 0; i < PunManager.instance.PlayerCount-1; i++)
             {
                 GetWinner();
             }
@@ -134,14 +134,11 @@ public class StatusManger : MonoBehaviour, IPunObservable
         }
 
     }
-    public void RevealWinner()
-    {
-         WinnerBG.SetActive(true);
-    }
+   
     public void GetWinner()
     {
         Indexlist.Clear();
-        int maxElement = scoreList[0];
+        int maxElement = scoreList[2];
         for (int index = 2; index < scoreList.Length; index++)
         {
             if (scoreList[index] >= maxElement)
@@ -150,6 +147,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
         Debug.Log(maxElement);
         if (maxElement==0)
         {
+            WinnerBG.SetActive(true);
             WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text ="No Winner";
             return;
         }
@@ -159,6 +157,7 @@ public class StatusManger : MonoBehaviour, IPunObservable
             {
                 if (scoreList[index] == maxElement)
                 {
+                    Debug.Log(index);
                     Indexlist.Add(index);
                 }
             }
@@ -174,25 +173,25 @@ public class StatusManger : MonoBehaviour, IPunObservable
 
                 }
                 Debug.Log(minElement);
-                for (int index = 0; index < Timelist.Length; index++)
+                for (int index = 0; index < Indexlist.Count; index++)
                 {
-                    if (Timelist[index] == minElement)
+                    if (Timelist[Indexlist[index]] == minElement)
                     {
                        
                         if (checkindex > 0)
                         {
-                            if (tempValue != index) MainGrpList.Add(index);
+                            if (tempValue != Indexlist[index]) MainGrpList.Add(Indexlist[index]);
                         }
                         else
                         {
-                            MainGrpList.Add(index);
+                            MainGrpList.Add(Indexlist[index]);
                         }
 
                         checkindex++;
-                        tempValue = index;
+                        tempValue = Indexlist[index];
 
-                        scoreList[index] = 1;
-                        Timelist[index] = 10000;
+                        scoreList[Indexlist[index]] = 1;
+                        Timelist[Indexlist[index]] = 10000;
                         WinnerBG.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NameList[MainGrpList[0]];// NameList[index];
                         return;
                     }
@@ -217,8 +216,9 @@ public class StatusManger : MonoBehaviour, IPunObservable
 
             }
         }
-    
-     
+
+        IntroSceneManager.instance.AssignSprites();
+       
     }
     void AssignList()
     {

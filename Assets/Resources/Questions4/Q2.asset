@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _info: What does DNS security protect you from?
   _answers:
-  - _info: known and unknown bad domains
+  - _info: Known and unknown bad domains
     _isCorrect: 0
-  - _info: dns tunneling
+  - _info: DNS tunneling
     _isCorrect: 0
   - _info: DGA
     _isCorrect: 0

@@ -18,10 +18,10 @@ MonoBehaviour:
     _isCorrect: 0
   - _info: Advanced URL Filtering
     _isCorrect: 0
-  - _info: a and b
-    _isCorrect: 1
   - _info: Advanced Threat Prevention
     _isCorrect: 0
+  - _info: All of the above
+    _isCorrect: 1
   _useTimer: 1
   _timer: 45
   _answerType: 1

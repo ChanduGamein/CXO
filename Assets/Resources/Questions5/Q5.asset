@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q5
   m_EditorClassIdentifier: 
-  _info: What does ADEM give administrators visibility into?
+  _info: How many Interfaces do I work with in Prisma Cloud to look after a multi
+    cloud environment?
   _answers:
-  - _info: The entire service delivery path
+  - _info: '1
+
+'
     _isCorrect: 1
-  - _info: Container utilization
+  - _info: 2
     _isCorrect: 0
-  - _info: User traffic behaviors
+  - _info: 3
     _isCorrect: 0
-  - _info: Circuit bandwidth consumption
+  - _info: 4
     _isCorrect: 0
   _useTimer: 1
   _timer: 45

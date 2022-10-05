@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q1
   m_EditorClassIdentifier: 
-  _info: What does SASE stand for?
+  _info: Which phase of the application development lifecycle can Prisma Cloud be
+    used to secure cloud native applications ?
   _answers:
-  - _info: Secure Access Service Edge
+  - _info: Code & build
+    _isCorrect: 0
+  - _info: Deploy
+    _isCorrect: 0
+  - _info: Continuous protection across the entire application development lifecycle
     _isCorrect: 1
-  - _info: Security Analytics Service EndPoint
-    _isCorrect: 0
-  - _info: Security Awareness Solution Enhancement
-    _isCorrect: 0
-  - _info: Sophisticated Attack Simplification Empowerment
+  - _info: Run
     _isCorrect: 0
   _useTimer: 1
   _timer: 45

@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _info: What does Cortex XPANSE help you with?
   _answers:
-  - _info: discover, evaluate and mitigate cyber attack surface risks for internet-facing
+  - _info: Discover, evaluate and mitigate cyber attack surface risks for internet-facing
       assets
     _isCorrect: 1
-  - _info: automation and orchestration
+  - _info: Automation and orchestration
     _isCorrect: 0
-  - _info: endpoint prevention
+  - _info: Endpoint prevention
     _isCorrect: 0
-  - _info: malware analysis
+  - _info: Malware analysis
     _isCorrect: 0
   _useTimer: 1
   _timer: 45

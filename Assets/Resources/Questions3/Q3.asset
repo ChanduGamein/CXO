@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _info: What are the main use cases of Cortex XSOAR?
   _answers:
-  - _info: workflow automation
+  - _info: Workflow automation
     _isCorrect: 0
-  - _info: incident management
+  - _info: Incident management
     _isCorrect: 0
-  - _info: threat intel management
+  - _info: Threat intel management
     _isCorrect: 0
-  - _info: all of the above
+  - _info: All of the above
     _isCorrect: 1
   _useTimer: 1
   _timer: 45

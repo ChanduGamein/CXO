@@ -12,16 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q4
   m_EditorClassIdentifier: 
-  _info: What is a characteristic of next-generation SD-WAN solutions?
+  _info: Pre Prisma Cloud code cannot be scanned after Prisma Cloud has been added
   _answers:
-  - _info: Detailed bandwidth reporting
+  - _info: True
     _isCorrect: 0
-  - _info: Insights for SSL Decryption
-    _isCorrect: 0
-  - _info: Application-defined traffic steering
+  - _info: False
     _isCorrect: 1
-  - _info: Establishment of secure fabric
-    _isCorrect: 0
   _useTimer: 1
   _timer: 45
   _answerType: 1

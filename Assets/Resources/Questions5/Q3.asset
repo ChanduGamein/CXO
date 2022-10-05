@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
   m_Name: Q3
   m_EditorClassIdentifier: 
-  _info: Which of the following statements is incorrect about SASE?
+  _info: What are the risks that Prisma Cloud can overcome during the Code & Build
+    phase of the application development lifecycle
   _answers:
-  - _info: With a cloud infrastructure, you can easily connect to wherever resources
-      are located
+  - _info: Insecure IaC
     _isCorrect: 0
-  - _info: Access to apps, the internet and corporate data is available globally
+  - _info: Insecure VCS configuration
     _isCorrect: 0
-  - _info: Security and network access are delivered based on IP address
+  - _info: Exposed secrets
+    _isCorrect: 0
+  - _info: All of the above
     _isCorrect: 1
-  - _info: Implementing data protection policies within a SASE framework
-    _isCorrect: 0
   _useTimer: 1
   _timer: 45
   _answerType: 1

@@ -20,7 +20,7 @@ MonoBehaviour:
     _isCorrect: 0
   - _info: Prisma Access
     _isCorrect: 0
-  - _info: all of the above
+  - _info: All of the above
     _isCorrect: 1
   _useTimer: 1
   _timer: 45
