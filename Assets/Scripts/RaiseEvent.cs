@@ -74,7 +74,7 @@ public class RaiseEvent : MonoBehaviourPun {
 
     public void UpdateAfterDelay()
     {
-      //  if (!PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(_updateValues());
 
@@ -105,5 +105,27 @@ public class RaiseEvent : MonoBehaviourPun {
 
         PhotonNetwork.RaiseEvent(Client_CHANGE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
-  
+
+
+    //public void ClickTestButton()
+    //{
+    //    if (photonView.IsMine)
+    //    {
+    //        AddFive();
+    //    }
+    //    else
+    //    {
+    //        photonView.RPC("AddFive", RpcTarget.MasterClient);
+    //        //photonView.RPC("AddFive", photonView.Controller);
+    //    }
+    //    Debug.Log($"Local test = {test}");
+    //}
+
+    //[PunRPC]
+    //private void AddFive()
+    //{
+    //    test += 5;
+    //}
+
+
 }

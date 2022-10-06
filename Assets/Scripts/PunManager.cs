@@ -32,14 +32,12 @@ public class PunManager : MonoBehaviourPunCallbacks {
         PhotonNetwork.GameVersion = this.version;
         PhotonNetwork.ConnectUsingSettings();
         photonView = PhotonView.Get(this);
-        PhotonNetwork.EnableCloseConnection = true;
-        PhotonNetwork.JoinLobby();
+      //  PhotonNetwork.EnableCloseConnection = true;
+       // PhotonNetwork.JoinLobby();
     }
-
   
-    private bool IsNullOrEmpty(string text) {
-        throw new NotImplementedException();
-    }
+  
+  
 
     public void ControlMaster() {
         //PhotonNetwork.SetMasterClient(PhotonNetwork.playerList[1]);
@@ -223,8 +221,18 @@ public class PunManager : MonoBehaviourPunCallbacks {
             {
             // GamePanel.SetActive(true);
             //  RoomNameText.text = "Room" + " : " + System.DateTime.Now;
-         //   Room_Name = Room_Name + SessionVal.ToString();
-            PhotonNetwork.JoinOrCreateRoom(Room_Name, roomOptions, typedLobby);
+            //   Room_Name = Room_Name + SessionVal.ToString();
+
+            //RoomOptions roomOptions = new RoomOptions();
+            //roomOptions.CleanupCacheOnLeave = false;
+            //roomOptions.MaxPlayers = 11;
+            //roomOptions.PlayerTtl = -1;
+            //roomOptions.EmptyRoomTtl = 300000;
+            //PhotonNetwork.KeepAliveInBackground = 600000;
+            // PhotonNetwork.JoinOrCreateRoom(Room_Name, roomOptions, typedLobby);
+
+            Debug.Log(Room_Name);
+            PhotonNetwork.CreateRoom(Room_Name, roomOptions, typedLobby, teamMembersUserIds);
 
             //PhotonNetwork.CurrentRoom.IsOpen = false;
             //  PhotonNetwork.CurrentRoom.IsVisible = false;
@@ -233,18 +241,27 @@ public class PunManager : MonoBehaviourPunCallbacks {
         }
     }
     public void CustomJoinRoom() {
-        //if (CustomRoomname.text.Length != 0)
-        {
-            RoomOptions roomOptions = new RoomOptions();
-            roomOptions.MaxPlayers = 11;
-            PhotonNetwork.JoinRoom(Room_Name, expectedUsers);
-        }
 
-        // PlayBtn.gameObject.SetActive(true);
-        // TherapyBtn.enabled = true;
+        //RoomOptions roomOptions = new RoomOptions();
+        //roomOptions.CleanupCacheOnLeave = false;
+        //roomOptions.MaxPlayers = 11;
+        //roomOptions.PlayerTtl = -1;
+        //roomOptions.EmptyRoomTtl = 300000;
+        //PhotonNetwork.KeepAliveInBackground = 600000;
 
+        //PhotonNetwork.JoinRoom(Room_Name, expectedUsers);
+        //StartCoroutine(delayconnection());
 
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 11;
+        PhotonNetwork.JoinRoom(Room_Name, expectedUsers);
 
+    }
+    IEnumerator delayconnection()
+    {
+        yield return new WaitForSeconds(1f);
+       
+       // PhotonNetwork.JoinRoom(Room_Name, expectedUsers);
     }
 
     public void CloseRoomForplayers()

@@ -22,6 +22,11 @@ public class WebGLNativeInputField : UnityEngine.UI.InputField
         switch( m_DialogType ){
             case EDialogType.PromptPopup:
                 this.text = WebNativeDialog.OpenNativeStringDialog(m_DialogTitle, this.text);
+                 if( this.text.Length>0 ){
+             this.gameObject.GetComponent<TextChecker>().TextFilled = true;
+            }else{
+             this.gameObject.GetComponent<TextChecker>().TextFilled = false;
+            }
                 StartCoroutine(this.DelayInputDeactive());
                 break;
             case EDialogType.OverlayHtml:
@@ -57,6 +62,7 @@ public class WebGLNativeInputField : UnityEngine.UI.InputField
             }else{
              this.gameObject.GetComponent<TextChecker>().TextFilled = false;
             }
+            this.gameObject.GetComponent<TextChecker>().ResetCam();
         }
     }
     
