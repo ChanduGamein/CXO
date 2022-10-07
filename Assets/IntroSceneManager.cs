@@ -42,7 +42,7 @@ public class IntroSceneManager : MonoBehaviour
     public GameObject MainCanvas;
     PhotonView photonView;
     public List<int> QuestionLength;
-   
+
 
 
 
@@ -190,7 +190,7 @@ public class IntroSceneManager : MonoBehaviour
         CategoryMangers.transform.GetChild(StatusManger.instance.CategoryNumber).gameObject.SetActive(true);
         
     }
-
+    bool savedonce;
     public void ResetManagersGrp()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -207,6 +207,10 @@ public class IntroSceneManager : MonoBehaviour
             TotalScoreGrp_User.transform.GetChild(StatusManger.instance.CategoryNumber).gameObject.SetActive(true);
             UserScoreText.text =ScoreValue.ToString();
             UserTimeText.text = TotalTimeValue.ToString();
+            if (!savedonce) { 
+                ApiManager.instance.UpdateUserValues_Finalscores(ScoreValue, TotalTimeValue);
+                savedonce = true;
+            }
             for (int i=0;i< UserScoreTextGrp.Length;i++)
             {
                 UserScoreTextGrp[i].text = ScoreValue.ToString();

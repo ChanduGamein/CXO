@@ -175,7 +175,8 @@ public class GameManager : MonoBehaviour {
    {
         QuestionTotalText.text = StatusManger.instance.QuestionTotal.ToString();
         IntroSceneManager.instance.TimeValue = 0;
-        IntroSceneManager.instance.RaiseEventObject.UpdateValues();
+       // IntroSceneManager.instance.RaiseEventObject.UpdateValues();
+        PunManager.instance.PlayerObject.GetComponent<GameStatusManager>().UpdateValues();
 
         if (StatusManger.instance.QuestionTotal<= Questions.Length)  StartCoroutine(_DisplayQuestion());
    }
@@ -219,7 +220,9 @@ public class GameManager : MonoBehaviour {
             IntroSceneManager.instance.TotalTimeValue += 45 - timeLeft;// IntroSceneManager.instance.Timeleft;
         }
         IntroSceneManager.instance.TimeValue = 45 - timeLeft; //IntroSceneManager.instance.Timeleft;
-        IntroSceneManager.instance.RaiseEventObject.UpdateValues();
+       // IntroSceneManager.instance.RaiseEventObject.UpdateValues();
+        PunManager.instance.PlayerObject.GetComponent<GameStatusManager>().UpdateValues();
+
         IntroSceneManager.instance.AnswerOnlyOnce = true;
 
         //if (Ques)

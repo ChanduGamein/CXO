@@ -156,3 +156,10 @@ MonoBehaviour:
   TimeValue: 0
   playerName: 
   PlayerNumber: 0
+  r: 0
+  g: 0
+  b: 0
+  PlayerName: 
+  Playernumber: 0
+  TotalTimeValue: 0
+  playerJoined: 0

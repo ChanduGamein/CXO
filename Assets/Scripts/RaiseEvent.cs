@@ -5,27 +5,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class RaiseEvent : MonoBehaviourPun {
+public class RaiseEvent : MonoBehaviourPun
+{
    public bool playerJoined;
     public string PlayerName;
     public int ScoreValue,TimeValue, Playernumber,TotalTimeValue;
     private const byte Client_CHANGE_EVENT = 0;
-  
-    //private void Update() {
-    //    if (!PhotonNetwork.IsMasterClient && !playerJoined) {
-    //        ChangeClientview();
-    //        Debug.Log("test");
-    //    } 
-    //}
+   
 
     private void OnEnable() {
-        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
+      //  PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
       
 
     }
 
     private void OnDisable() {
-        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
+      //  PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
     }
 
     private void NetworkingClient_EventReceived(EventData obj) {
@@ -84,9 +79,14 @@ public class RaiseEvent : MonoBehaviourPun {
     IEnumerator _updateValues()
     {
        
-        yield return new WaitForSeconds(4f);
-        UpdateValues();
+         yield return new WaitForSeconds(2f);
+      if(PunManager.instance.PlayerObject!=null)  PunManager.instance.PlayerObject.GetComponent<GameStatusManager>().UpdateValues();
+        yield return new WaitForSeconds(5f);
+        if (PunManager.instance.PlayerObject != null) PunManager.instance.PlayerObject.GetComponent<GameStatusManager>().UpdateValues();
+
+        //  UpdateValues();
     }
+
     public void UpdateValues() {
         foreach (Player p in PhotonNetwork.PlayerList)
         {
@@ -101,31 +101,13 @@ public class RaiseEvent : MonoBehaviourPun {
            ScoreValue = IntroSceneManager.instance.ScoreValue;
        if(IntroSceneManager.instance.TimeValue<=45)  TimeValue = IntroSceneManager.instance.TimeValue;
         TotalTimeValue = IntroSceneManager.instance.TotalTimeValue;
-        object[] datas = new object[] { playerJoined, ScoreValue, TimeValue, PlayerName, Playernumber, TotalTimeValue };
+       // object[] datas = new object[] { playerJoined, ScoreValue, TimeValue, PlayerName, Playernumber, TotalTimeValue };
 
-        PhotonNetwork.RaiseEvent(Client_CHANGE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+       // PhotonNetwork.RaiseEvent(Client_CHANGE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
+   
+ 
 
-
-    //public void ClickTestButton()
-    //{
-    //    if (photonView.IsMine)
-    //    {
-    //        AddFive();
-    //    }
-    //    else
-    //    {
-    //        photonView.RPC("AddFive", RpcTarget.MasterClient);
-    //        //photonView.RPC("AddFive", photonView.Controller);
-    //    }
-    //    Debug.Log($"Local test = {test}");
-    //}
-
-    //[PunRPC]
-    //private void AddFive()
-    //{
-    //    test += 5;
-    //}
 
 
 }

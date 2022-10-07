@@ -21,7 +21,7 @@ public class PunManager : MonoBehaviourPunCallbacks {
     private RoomOptions roomOptions;
     PhotonView photonView;
     public static PunManager instance = null;
-    [SerializeField] GameObject PlayerObject, PlayerPrefab;
+    [SerializeField]public GameObject PlayerObject, PlayerPrefab;
     public String Room_Name;
     [SerializeField] bool IsAdmin;
     private void Awake() {
@@ -81,7 +81,9 @@ public class PunManager : MonoBehaviourPunCallbacks {
         PlayerCount++;
 
         PlayerObject=PhotonNetwork.Instantiate(PlayerPrefab.name, PlayerPrefab.transform.position, PlayerPrefab.transform.rotation, 0);
-       
+       IntroSceneManager.instance.RaiseEventObject.GetComponent<RaiseEvent>().UpdateAfterDelay();
+
+
         countofPlayers();
         //JoinRoom.gameObject.SetActive(false);
 
