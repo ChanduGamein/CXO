@@ -158,6 +158,10 @@ public class PunManager : MonoBehaviourPunCallbacks {
             IntroSceneManager.instance.ChooseCategoryBtn.interactable = true;
 
         }
+        if (PlayerCount >= 11)
+        {
+            IntroSceneManager.instance.CategoryBtnOptions();
+        }
         // GameStatusManager.instance.PlayerNumber = newPlayer.ActorNumber;
     }
     IEnumerator AddPlayerName(GameObject B)
@@ -232,7 +236,8 @@ public class PunManager : MonoBehaviourPunCallbacks {
             //roomOptions.EmptyRoomTtl = 300000;
             //PhotonNetwork.KeepAliveInBackground = 600000;
             // PhotonNetwork.JoinOrCreateRoom(Room_Name, roomOptions, typedLobby);
-
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = 11;
             Debug.Log(Room_Name);
             PhotonNetwork.CreateRoom(Room_Name, roomOptions, typedLobby, teamMembersUserIds);
 

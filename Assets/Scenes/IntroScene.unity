@@ -1050,7 +1050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &29682542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8883,7 +8883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &228762249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17350,7 +17350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &488121219
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19969,7 +19969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &581147293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30552,7 +30552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &887292213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36408,7 +36408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1086712535
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36972,7 +36972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1106906564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38011,7 +38011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1144318005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40310,7 +40310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1200332591
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41853,7 +41853,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1250200259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41870,7 +41870,7 @@ MonoBehaviour:
   PlayerObject: {fileID: 0}
   PlayerPrefab: {fileID: 272726080591054643, guid: eccc16697fc9fc0429d1505f3f128418, type: 3}
   Room_Name: CXO
-  IsAdmin: 1
+  IsAdmin: 0
 --- !u!4 &1250200260
 Transform:
   m_ObjectHideFlags: 0

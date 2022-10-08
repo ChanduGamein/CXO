@@ -135,7 +135,7 @@ public class IntroSceneManager : MonoBehaviour
        // }
       
     }
-    void CategoryBtnOptions()
+   public void CategoryBtnOptions()
     {
         PunManager.instance.CloseRoomForplayers();
         AwaitingParticipantsGrp.SetActive(false);
